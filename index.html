@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Поддержать СайтСотика</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #02030a;
+      --accent: #ff9900;
+      --accent3: #ffdd99;
+      --muted: #9a9ab5;
+      --glass: rgba(10,10,25,0.82);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #26264a, #02030a);
+      color: white;
+    }
+
+    .panel {
+      width: 90%;
+      max-width: 400px;
+      border-radius: 24px;
+      background: var(--glass);
+      border: 1px solid rgba(255,153,0,0.25);
+      box-shadow: 0 0 40px rgba(0,0,0,0.95), inset 0 0 40px rgba(255,153,0,0.15);
+      backdrop-filter: blur(18px);
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .status-icon {
+      font-size: 60px;
+      margin: 20px 0;
+      color: #3bd16f;
+    }
+
+    .status-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent3);
+      margin-bottom: 10px;
+    }
+
+    .status-text {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .donate-qr {
+      width: 180px;
+      height: 180px;
+      border-radius: 16px;
+      margin: 20px auto;
+      display: block;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
+
+    .pay-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: #3bd16f;
+      color: #000;
+      font-weight: 700;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 10px;
+    }
+
+    .pay-btn:hover {
+      background: #2ec55e;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(46, 197, 94, 0.3);
+    }
+
+    input {
+      width: 80%;
+      max-width: 200px;
+      padding: 10px;
+      margin: 10px auto;
+      border-radius: 8px;
+      border: 1px solid #ff9900;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      text-align: center;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="panel">
+  <div class="status-icon">💸</div>
+  <div class="status-title">Перевод по кнопке</div>
+  <div class="status-text" id="amountText">Введите сумму</div>
+
+  <input type="number" id="sumInput" placeholder="Сумма в ₽" min="1" max="100000">
+
+  <button class="pay-btn" id="generateButton">Сформировать QR</button>
+
+  <img src="" id="qrCode" class="donate-qr" style="display:none;">
+  <button class="pay-btn" id="payButton" style="display:none;">Оплатить</button>
+</div>
+
+<script>
+  const wallet = '4100117753597226';
+
+  const sumInput = document.getElementById('sumInput');
+  const amountText = document.getElementById('amountText');
+  const generateButton = document.getElementById('generateButton');
+  const payButton = document.getElementById('payButton');
+  const qrCode = document.getElementById('qrCode');
+
+  generateButton.onclick = () => {
+    const sum = parseInt(sumInput.value);
+
+    if (!sum || sum < 1) {
+      alert('Введите сумму');
+      return;
+    }
+
+    amountText.textContent = `${sum} ₽`;
+
+    const params = new URLSearchParams({
+      receiver: wallet,
+      sum: sum,
+      quickpay_form: 'shop',
+      targets: 'Поддержка проекта'
+    });
+
+    const paymentUrl = `https://yoomoney.ru/quickpay/confirm?${params.toString()}`;
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(paymentUrl)}`;
+
+    qrCode.src = qrUrl;
+    qrCode.style.display = 'block';
+    payButton.style.display = 'inline-block';
+
+    payButton.onclick = () => window.open(paymentUrl, '_blank');
+  };
+</script>
+
+</body>
+</html>
