@@ -1,157 +1,1173 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <title>Поддержать СайтСотика</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <title>Донат + Чат — СайтСотика (итоговая версия)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+            background:radial-gradient(circle at top,#f7f8ff 0,#e4e7f5 40%,#d3d6e6 100%);
+            color:#0f172a;
+            line-height:1.6;
+            overflow-x:hidden;
+        }
+        header{
+            position:fixed;
+            top:0;left:0;right:0;
+            height:60px;
+            background:#020617;
+            border-bottom:1px solid #111827;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:0 18px;
+            z-index:1000;
+            box-shadow:0 10px 30px rgba(15,23,42,.8);
+        }
+        header a{
+            text-decoration:none;
+        }
+        .back-btn{
+            color:#e5e7eb;
+            font-size:11px;
+            text-transform:uppercase;
+            letter-spacing:.16em;
+            padding:7px 14px;
+            border-radius:999px;
+            border:1px solid rgba(148,163,184,.6);
+            background:radial-gradient(circle at top,rgba(15,23,42,.9),rgba(15,23,42,1));
+            box-shadow:0 4px 12px rgba(15,23,42,.9);
+        }
+        .back-btn:hover{
+            border-color:#f97316;
+            color:#fed7aa;
+        }
+        .logo{
+            font-weight:800;
+            font-size:12px;
+            text-transform:uppercase;
+            letter-spacing:.18em;
+            color:#e5e7eb;
+        }
+        header .spacer{
+            width:70px;
+        }
+        .main-wrap{
+            max-width:1320px;
+            margin:80px auto 20px;
+            padding:0 16px 40px;
+        }
+        .main-title{
+            text-align:center;
+            margin-bottom:10px;
+            font-size:26px;
+            font-weight:800;
+            letter-spacing:.08em;
+            text-transform:uppercase;
+            color:#020617;
+        }
+        .main-sub{
+            text-align:center;
+            font-size:14px;
+            color:#6b7280;
+            margin-bottom:26px;
+        }
+        .layout{
+            display:grid;
+            grid-template-columns:minmax(0,2fr) minmax(0,1.5fr);
+            gap:18px;
+            align-items:flex-start;
+        }
+        .left-shell{
+            min-height:420px;
+            background:radial-gradient(circle at top left,#020617,#020617 40%,#0b1120 100%);
+            border-radius:18px;
+            border:1px solid rgba(15,23,42,.9);
+            box-shadow:0 18px 45px rgba(15,23,42,.9);
+            padding:14px;
+            position:relative;
+            overflow:hidden;
+        }
+        .left-inner{
+            width:100%;
+            height:100%;
+            border-radius:14px;
+            overflow:hidden;
+            background:#000;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .left-placeholder{
+            width:100%;
+            height:100%;
+            background:radial-gradient(circle at center,#111827,#020617);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#9ca3af;
+            font-size:12px;
+            text-transform:uppercase;
+            letter-spacing:.22em;
+        }
+        .right-shell{
+            position:relative;
+        }
+        .bank-block{
+            background:#ffffff;
+            border-radius:18px;
+            padding:26px 22px 26px;
+            box-shadow:0 10px 30px rgba(15,23,42,.08);
+            border:1px solid rgba(148,163,184,.35);
+            margin-bottom:18px;
+        }
+        .bank-title{
+            text-align:center;
+            font-size:18px;
+            font-weight:700;
+            margin-bottom:6px;
+        }
+        .bank-sub{
+            text-align:center;
+            font-size:13px;
+            color:#6b7280;
+            margin-bottom:18px;
+        }
+        .bank-options{
+            display:flex;
+            flex-wrap:wrap;
+            gap:14px;
+            justify-content:center;
+        }
+        .bank-card{
+            flex:0 0 180px;
+            max-width:200px;
+            background:#f9fafb;
+            border-radius:14px;
+            border:1px solid #e5e7eb;
+            padding:12px 10px 12px;
+            text-align:center;
+            cursor:pointer;
+            transition:.2s;
+            position:relative;
+            overflow:hidden;
+        }
+        .bank-card::before{
+            content:"";
+            position:absolute;
+            top:0;left:0;right:0;
+            height:3px;
+            background:linear-gradient(90deg,#f97316,#22c55e,#3b82f6);
+            transform:scaleX(0);
+            transform-origin:left;
+            transition:transform .2s;
+        }
+        .bank-card:hover::before{
+            transform:scaleX(1);
+        }
+        .bank-card:hover{
+            transform:translateY(-3px);
+            box-shadow:0 10px 25px rgba(15,23,42,.12);
+            border-color:#f97316;
+        }
+        .bank-card.selected{
+            border-color:#f97316;
+            background:#fff7ed;
+        }
+        .bank-card img{
+            width:80%;
+            height:70px;
+            object-fit:contain;
+            margin-bottom:8px;
+            background:#ffffff;
+            border-radius:10px;
+            padding:6px;
+        }
+        .bank-card h3{
+            font-size:13px;
+            margin-bottom:4px;
+        }
+        .bank-card p{
+            font-size:11px;
+            color:#6b7280;
+            margin-bottom:4px;
+        }
+        .bank-card span{
+            font-size:11px;
+            color:#f97316;
+            font-weight:600;
+        }
+        .ym-panel{
+            margin-top:18px;
+            display:none;
+        }
+        .ym-title{
+            text-align:center;
+            font-size:16px;
+            font-weight:700;
+            margin-bottom:4px;
+        }
+        .ym-sub{
+            text-align:center;
+            font-size:13px;
+            color:#6b7280;
+            margin-bottom:16px;
+        }
+        .ym-grid{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:10px;
+            max-width:360px;
+            margin:0 auto 10px;
+        }
+        .ym-btn{
+            all:unset;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            height:70px;
+            border-radius:14px;
+            border:1px solid #e5e7eb;
+            background:#f9fafb;
+            font-size:13px;
+            color:#1d4ed8;
+            cursor:pointer;
+            box-shadow:0 4px 10px rgba(15,23,42,.08);
+        }
+        .ym-btn svg{
+            width:26px;
+            height:26px;
+            margin-bottom:4px;
+            fill:#1d4ed8;
+        }
+        .ym-btn:hover{
+            transform:translateY(-2px);
+            box-shadow:0 8px 18px rgba(15,23,42,.12);
+        }
+        .ym-btn.other{
+            background:linear-gradient(135deg,#f97316,#ea580c);
+            color:#fff;
+            border:none;
+        }
+        .ym-custom-wrap{
+            max-width:260px;
+            margin:0 auto;
+            overflow:hidden;
+            height:0;
+            opacity:0;
+            transition:.25s;
+        }
+        .ym-custom-inner{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:8px;
+        }
+        .ym-custom-inner input{
+            width:110px;
+            padding:8px 10px;
+            border-radius:10px;
+            border:1px solid #1d4ed8;
+            font-size:14px;
+            text-align:center;
+        }
+        .ym-custom-inner button{
+            all:unset;
+            padding:8px 14px;
+            border-radius:10px;
+            background:linear-gradient(135deg,#22c55e,#16a34a);
+            color:#fff;
+            font-size:12px;
+            font-weight:600;
+            cursor:pointer;
+        }
+        .ym-confirm{
+            margin-top:14px;
+            display:none;
+            max-width:360px;
+            margin-left:auto;
+            margin-right:auto;
+            background:#f9fafb;
+            border-radius:14px;
+            border:1px solid #e5e7eb;
+            padding:14px 12px 14px;
+        }
+        .ym-confirm-amount{
+            text-align:center;
+            font-size:20px;
+            font-weight:700;
+            color:#1d4ed8;
+            margin-bottom:6px;
+        }
+        .ym-confirm-text{
+            text-align:center;
+            font-size:12px;
+            color:#6b7280;
+            margin-bottom:10px;
+        }
+        .ym-confirm-msg{
+            width:100%;
+            border-radius:10px;
+            border:1px solid #d1d5db;
+            padding:8px 10px;
+            font-size:13px;
+            resize:vertical;
+            min-height:50px;
+        }
+        .ym-confirm-btn-wrap{
+            margin-top:10px;
+            text-align:center;
+        }
+        .ym-confirm-btn{
+            all:unset;
+            padding:8px 18px;
+            border-radius:999px;
+            background:linear-gradient(135deg,#22c55e,#16a34a);
+            color:#ecfdf5;
+            font-size:12px;
+            text-transform:uppercase;
+            letter-spacing:.12em;
+            cursor:pointer;
+        }
+        footer{
+            text-align:center;
+            font-size:12px;
+            color:#6b7280;
+            padding:20px 10px 30px;
+        }
+        #chat-toggle{
+            position:fixed;
+            right:18px;
+            bottom:80px;
+            z-index:1200;
+            padding:10px 18px;
+            border-radius:999px;
+            border:none;
+            background:linear-gradient(135deg,#6366f1,#4f46e5);
+            color:#e5e7eb;
+            font-size:11px;
+            text-transform:uppercase;
+            letter-spacing:.16em;
+            cursor:pointer;
+            box-shadow:0 12px 30px rgba(79,70,229,.7);
+        }
+        #chat-backdrop{
+            position:fixed;
+            inset:60px 0 0 0;
+            background:rgba(15,23,42,.6);
+            opacity:0;
+            pointer-events:none;
+            transition:.25s;
+            z-index:1100;
+        }
+        #chat-backdrop.visible{
+            opacity:1;
+            pointer-events:auto;
+        }
+        #chat-panel{
+            position:fixed;
+            top:60px;
+            right:0;
+            bottom:0;
+            width:420px;
+            max-width:100%;
+            background:#020617;
+            border-left:1px solid #111827;
+            box-shadow:-16px 0 40px rgba(15,23,42,.9);
+            transform:translateX(100%);
+            transition:.3s;
+            z-index:1300;
+            display:flex;
+            flex-direction:column;
+            max-height:calc(100vh - 60px);
+            overflow:hidden;
+        }
+        #chat-panel.open{
+            transform:translateX(0);
+        }
+        #chat-header{
+            height:44px;
+            border-bottom:1px solid #111827;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:0 10px;
+        }
+        #chat-title{
+            font-size:11px;
+            text-transform:uppercase;
+            letter-spacing:.16em;
+            color:#9ca3af;
+        }
+        #chat-close{
+            padding:4px 10px;
+            border-radius:999px;
+            border:1px solid rgba(248,113,113,.7);
+            background:rgba(30,64,175,.1);
+            color:#fecaca;
+            font-size:11px;
+            text-transform:uppercase;
+            letter-spacing:.12em;
+            cursor:pointer;
+        }
+        #chat-body{
+            flex:1;
+            display:flex;
+            flex-direction:column;
+            overflow:hidden;
+        }
+        #chat-messages{
+            flex:1;
+            overflow-y:auto;
+            padding:10px 8px 8px;
+        }
+        .msg{
+            margin-bottom:8px;
+            padding:6px 8px;
+            border-radius:8px;
+            background:rgba(15,23,42,.9);
+            border:1px solid #111827;
+        }
+        .msg .meta{
+            font-size:10px;
+            text-transform:uppercase;
+            letter-spacing:.14em;
+            color:#9ca3af;
+            margin-bottom:2px;
+        }
+        .msg .text{
+            font-size:13px;
+            color:#e5e7eb;
+        }
+        .msg.donate{
+            background:radial-gradient(circle at top left,rgba(251,191,36,.25),rgba(15,23,42,.98));
+            border-color:rgba(250,204,21,.9);
+        }
+        .msg.donate .meta{
+            color:#facc15;
+        }
+        #chat-input{
+            border-top:1px solid #111827;
+            padding:8px 8px 10px;
+            background:#020617;
+        }
+        /* Основная сетка: две колонки */
+        #chat-input {
+            border-top:1px solid #111827;
+            padding:8px 8px 10px;
+            background:#020617;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 8px;
+            width: 100%;
+        }
 
-  <style>
-    :root {
-      --bg: #02030a;
-      --accent: #ff9900;
-      --accent3: #ffdd99;
-      --muted: #9a9ab5;
-      --glass: rgba(10,10,25,0.82);
-    }
+        /* Левая колонка: Имя и Фамилия */
+        .chat-input-left {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+        #chat-name,
+        #chat-surname {
+            border-radius: 8px;
+            border: 1px solid #1f2937;
+            background: #020617;
+            color: #e5e7eb;
+            padding: 6px 8px;
+            font-size: 13px;
+            outline: none;
+            width: 100%;
+        }
 
-    body {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: system-ui, sans-serif;
-      background: radial-gradient(circle at top, #26264a, #02030a);
-      color: white;
-    }
+        /* Правая колонка: Сообщение */
+        #chat-msg {
+            border-radius: 8px;
+            border: 1px solid #1f2937;
+            background: #020617;
+            color: #e5e7eb;
+            padding: 6px 8px;
+            font-size: 13px;
+            outline: none;
+            resize: none;
+            min-height: 80px;
+            width: 100%;
+        }
 
-    .panel {
-      width: 90%;
-      max-width: 400px;
-      border-radius: 24px;
-      background: var(--glass);
-      border: 1px solid rgba(255,153,0,0.25);
-      box-shadow: 0 0 40px rgba(0,0,0,0.95), inset 0 0 40px rgba(255,153,0,0.15);
-      backdrop-filter: blur(18px);
-      padding: 30px 20px;
-      text-align: center;
-    }
+        /* Действия и панель доната */
+        .chat-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            grid-column: span 2;
+        }
 
-    .status-icon {
-      font-size: 60px;
-      margin: 20px 0;
-      color: #3bd16f;
-    }
-
-    .status-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--accent3);
-      margin-bottom: 10px;
-    }
-
-    .status-text {
-      font-size: 14px;
-      color: #ccc;
-      margin-bottom: 20px;
-    }
-
-    .donate-qr {
-      width: 180px;
-      height: 180px;
-      border-radius: 16px;
-      margin: 20px auto;
-      display: block;
-      box-shadow: 0 0 15px rgba(0,0,0,0.4);
-    }
-
-    .pay-btn {
-      display: inline-block;
-      padding: 12px 28px;
-      background: #3bd16f;
-      color: #000;
-      font-weight: 700;
-      font-size: 16px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-top: 10px;
-    }
-
-    .pay-btn:hover {
-      background: #2ec55e;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(46, 197, 94, 0.3);
-    }
-
-    input {
-      width: 80%;
-      max-width: 200px;
-      padding: 10px;
-      margin: 10px auto;
-      border-radius: 8px;
-      border: 1px solid #ff9900;
-      background: rgba(255,255,255,0.1);
-      color: white;
-      text-align: center;
-      font-size: 16px;
-    }
-  </style>
+        #chat-donate-panel {
+            grid-column: span 2;
+        }
+        .chat-actions{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:8px;
+        }
+        .donate-switch{
+            display:inline-flex;
+            align-items:center;
+            gap:4px;
+            font-size:10px;
+            text-transform:uppercase;
+            letter-spacing:.14em;
+            color:#9ca3af;
+            cursor:pointer;
+        }
+        .donate-switch input{
+            width:14px;
+            height:14px;
+            border-radius:4px;
+            border:1px solid #9ca3af;
+            background:#020617;
+            appearance:none;
+            position:relative;
+        }
+        .donate-switch input:checked{
+            background:#f97316;
+            border-color:#fed7aa;
+        }
+        .donate-switch input:checked::after{
+            content:"";
+            position:absolute;
+            inset:2px;
+            border-radius:2px;
+            background:#fffbeb;
+        }
+        #chat-send{
+            padding:7px 14px;
+            border-radius:999px;
+            border:none;
+            background:linear-gradient(135deg,#22c55e,#16a34a);
+            color:#ecfdf5;
+            font-size:10px;
+            text-transform:uppercase;
+            letter-spacing:.16em;
+            cursor:pointer;
+            box-shadow:0 10px 24px rgba(22,163,74,.7);
+        }
+        #chat-donate-panel{
+            margin-top:8px;
+            border-radius:10px;
+            background:#f9fafb;
+            color:#111827;
+            padding:8px;
+            border:1px solid #e5e7eb;
+            max-height:220px;
+            overflow-y:auto;
+            display:none;
+        }
+        .chat-bank-grid{
+            display:flex;
+            flex-wrap:wrap;
+            gap:8px;
+        }
+        .chat-bank-card{
+            flex:0 0 calc(50% - 8px);
+            background:#f3f4f6;
+            border-radius:10px;
+            border:1px solid #e5e7eb;
+            padding:8px 6px;
+            text-align:center;
+            cursor:pointer;
+            transition:.2s;
+        }
+        .chat-bank-card img{
+            width:80%;
+            height:50px;
+            object-fit:contain;
+            margin-bottom:4px;
+            background:#ffffff;
+            border-radius:8px;
+            padding:4px;
+        }
+        .chat-bank-card h4{
+            font-size:11px;
+            margin-bottom:2px;
+        }
+        .chat-bank-card p{
+            font-size:10px;
+            color:#6b7280;
+        }
+        .chat-bank-card span{
+            font-size:10px;
+            color:#f97316;
+            font-weight:600;
+        }
+        .chat-bank-card.selected{
+            border-color:#f97316;
+            background:#fff7ed;
+        }
+        #chat-ym-block{
+            margin-top:6px;
+            display:none;
+        }
+        #chat-ym-title{
+            text-align:center;
+            font-size:12px;
+            font-weight:600;
+            margin-bottom:4px;
+        }
+        .chat-ym-grid{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:6px;
+        }
+        .chat-ym-btn{
+            all:unset;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            height:60px;
+            border-radius:10px;
+            border:1px solid #e5e7eb;
+            background:#f9fafb;
+            font-size:11px;
+            color:#1d4ed8;
+            cursor:pointer;
+        }
+        .chat-ym-btn svg{
+            width:22px;
+            height:22px;
+            margin-bottom:2px;
+            fill:#1d4ed8;
+        }
+        .chat-ym-btn.other{
+            background:linear-gradient(135deg,#f97316,#ea580c);
+            color:#fff;
+            border:none;
+        }
+        #chat-ym-custom-wrap{
+            margin-top:4px;
+            overflow:hidden;
+            height:0;
+            opacity:0;
+            transition:.25s;
+        }
+        #chat-ym-custom-inner{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:6px;
+        }
+        #chat-ym-custom-input{
+            width:80px;
+            padding:6px 8px;
+            border-radius:8px;
+            border:1px solid #1d4ed8;
+            font-size:11px;
+            text-align:center;
+        }
+        #chat-ym-custom-btn2{
+            all:unset;
+            padding:6px 10px;
+            border-radius:8px;
+            background:linear-gradient(135deg,#22c55e,#16a34a);
+            color:#fff;
+            font-size:10px;
+            cursor:pointer;
+        }
+        #chat-post-return{
+            margin-top:6px;
+            display:none;
+        }
+        #chat-post-return input,
+        #chat-post-return textarea{
+            width:100%;
+            border-radius:8px;
+            border:1px solid #d1d5db;
+            padding:6px 8px;
+            font-size:11px;
+            margin-bottom:4px;
+        }
+        #chat-post-return textarea{
+            resize:vertical;
+            min-height:40px;
+        }
+        #chat-post-return-send{
+            width:100%;
+            padding:7px 10px;
+            border-radius:8px;
+            border:none;
+            background:linear-gradient(135deg,#22c55e,#16a34a);
+            color:#ecfdf5;
+            font-size:11px;
+            text-transform:uppercase;
+            letter-spacing:.12em;
+            cursor:pointer;
+        }
+        @media(max-width:1024px){
+            .layout{grid-template-columns:1fr}
+        }
+        @media(max-width:768px){
+            header{padding:0 10px}
+            .logo{font-size:10px}
+            .left-shell{min-height:260px}
+            #chat-panel{width:100%}
+        }
+    </style>
 </head>
 <body>
+<header>
+    <a href="/" class="back-btn">← Назад</a>
+    <div class="logo">Донат + Чат — СайтСотика</div>
+    <div class="spacer"></div>
+</header>
 
-<div class="panel">
-  <div class="status-icon">💸</div>
-  <div class="status-title">Перевод по кнопке</div>
-  <div class="status-text" id="amountText">Введите сумму</div>
+<main class="main-wrap">
+    <h1 class="main-title">Поддержка проекта</h1>
+    <p class="main-sub">Выберите удобный способ доната или общайтесь в чате справа</p>
 
-  <input type="number" id="sumInput" placeholder="Сумма в ₽" min="1" max="100000">
+    <section class="layout">
+        <div class="left-shell">
+            <div class="left-inner">
+                <div class="left-placeholder">ЗДЕСЬ БУДЕТ ВИДЕО / СТРИМ</div>
+            </div>
+        </div>
 
-  <button class="pay-btn" id="generateButton">Сформировать QR</button>
+        <div class="right-shell">
+            <section class="bank-block">
+                <h2 class="bank-title">Поддержка проекта</h2>
+                <p class="bank-sub">Выберите способ доната: сначала банк, затем сумму</p>
 
-  <img src="" id="qrCode" class="donate-qr" style="display:none;">
-  <button class="pay-btn" id="payButton" style="display:none;">Оплатить</button>
+                <!-- Шаг 1: Выбор банка -->
+                <div id="step-bank" class="step active">
+                <div class="bank-options" id="bank-options-main">
+                    <div class="bank-card" data-bank="sber">
+                        <img src="/images/sber.png" alt="Сбербанк" onerror="this.src='https://via.placeholder.com/260x120?text=Сбербанк';this.onerror=null;">
+                        <h3>Сбербанк</h3>
+                        <p>СБП или перевод по реквизитам</p>
+                        <span>Сначала банк → потом сумма/сообщение</span>
+                    </div>
+                    <div class="bank-card" data-bank="tinkoff">
+                        <img src="/images/tbank.png" alt="Тинькофф" onerror="this.src='https://via.placeholder.com/260x120?text=Тинькофф';this.onerror=null;">
+                        <h3>Тинькофф</h3>
+                        <p>Удобный интернет-банк</p>
+                        <span>Сначала банк → потом сумма/сообщение</span>
+                    </div>
+                    <div class="bank-card" data-bank="yoomoney">
+                        <img src="/images/youmoney.png" alt="ЮMoney" onerror="this.src='https://via.placeholder.com/260x120?text=ЮMoney';this.onerror=null;">
+                        <h3>ЮMoney</h3>
+                        <p>Электронный кошелёк</p>
+                        <span>Сначала сумма → потом ЮMoney → сообщение</span>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Шаг 2: Выбор суммы -->
+                <div id="step-amount" class="step" style="display:none;">
+                    <div class="ym-title">Сумма доната</div>
+                    <div class="ym-sub">Выберите сумму, которую хотите поддержать</div>
+
+                    <div class="ym-grid" id="ym-grid-main">
+                    <div class="ym-title">Сумма для ЮMoney</div>
+                    <div class="ym-sub">Сначала выберите сумму, потом откроется ЮMoney, потом вернётесь и напишете сообщение</div>
+
+                    <div class="ym-grid" id="ym-grid-main">
+                        <button class="ym-btn" data-ym-sum="10">
+                            <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            10 ₽
+                        </button>
+                        <button class="ym-btn" data-ym-sum="50">
+                            <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            50 ₽
+                        </button>
+                        <button class="ym-btn" data-ym-sum="100">
+                            <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            100 ₽
+                        </button>
+                        <button class="ym-btn" data-ym-sum="250">
+                            <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            250 ₽
+                        </button>
+                        <button class="ym-btn" data-ym-sum="500">
+                            <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            500 ₽
+                        </button>
+                        <button class="ym-btn" data-ym-sum="1000">
+                            <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            1000 ₽
+                        </button>
+                        <button class="ym-btn" data-ym-sum="2000">
+                            <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            2000 ₽
+                        </button>
+                        <button class="ym-btn" data-ym-sum="5000">
+                            <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            5000 ₽
+                        </button>
+                        <button class="ym-btn other" id="ym-main-other">
+                            <svg viewBox="0 0 24 24"><path d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                            Своя
+                        </button>
+                    </div>
+
+                    <!-- Поле для своей суммы -->
+                    <div class="ym-custom-wrap" id="ym-main-custom-wrap" style="margin-top:16px; height:0; opacity:0; overflow:hidden;">
+                        <div class="ym-custom-inner">
+                            <input type="number" id="ym-main-custom-input" placeholder="Введите сумму от 1 до 10 000 ₽" min="1" max="10000" style="width:180px;">
+                            <button id="ym-main-custom-go">Далее</button>
+                        </div>
+                    </div>
+                </div>
+                        <div class="ym-custom-inner">
+                            <input type="number" id="ym-main-custom-input" placeholder="Сумма" min="1" max="10000">
+                            <button id="ym-main-custom-go">Оплатить</button>
+                        </div>
+                    </div>
+
+                    <div class="ym-confirm" id="ym-main-confirm">
+                        <div class="ym-confirm-amount" id="ym-main-confirm-amount">0 ₽</div>
+                        <div class="ym-confirm-text">После оплаты через ЮMoney вы можете оставить сообщение, которое появится в чате</div>
+                        <textarea class="ym-confirm-msg" id="ym-main-confirm-msg" placeholder="Сообщение"></textarea>
+                        <div class="ym-confirm-btn-wrap">
+                            <button class="ym-confirm-btn" id="ym-main-confirm-send">Опубликовать в чат</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+</main>
+
+<footer>
+    © 2025 СайтСотика. Все переводы проходят через банки и ЮMoney. Данные карт не сохраняются на сайте.
+</footer>
+
+<button id="chat-toggle">Чат</button>
+<div id="chat-backdrop"></div>
+
+<div id="chat-panel">
+    <div id="chat-header">
+        <div id="chat-title">чат проекта</div>
+        <button id="chat-close">Закрыть</button>
+    </div>
+    <div id="chat-body">
+        <div id="chat-messages"></div>
+        <div id="chat-input">
+            <div class="chat-input-left">
+                <input id="chat-name" placeholder="Имя">
+                <input id="chat-surname" placeholder="Фамилия">
+            </div>
+            <textarea id="chat-msg" placeholder="Сообщение"></textarea>
+            <div class="chat-actions">
+                <label class="donate-switch">
+                    <input type="checkbox" id="chat-donate-switch">
+                    <span>Донат</span>
+                </label>
+                <button id="chat-send">Отправить</button>
+            </div>
+            <div id="chat-donate-panel">
+                <div class="chat-bank-grid" id="chat-bank-grid">
+                    <div class="chat-bank-card" data-chat-bank="sber">
+                        <img src="/images/sber.png" alt="Сбербанк" onerror="this.src='https://via.placeholder.com/260x120?text=Сбербанк';this.onerror=null;">
+                        <h4>Сбербанк</h4>
+                        <p>Сначала банк → потом сумма/сообщение</p>
+                        <span>СБП / перевод</span>
+                    </div>
+                    <div class="chat-bank-card" data-chat-bank="tinkoff">
+                        <img src="/images/tbank.png" alt="Тинькофф" onerror="this.src='https://via.placeholder.com/260x120?text=Тинькофф';this.onerror=null;">
+                        <h4>Тинькофф</h4>
+                        <p>Сначала банк → потом сумма/сообщение</p>
+                        <span>Интернет-банк</span>
+                    </div>
+                    <div class="chat-bank-card" data-chat-bank="yoomoney">
+                        <img src="/images/youmoney.png" alt="ЮMoney" onerror="this.src='https://via.placeholder.com/260x120?text=ЮMoney';this.onerror=null;">
+                        <h4>ЮMoney</h4>
+                        <p>Сначала сумма → потом ЮMoney → сообщение</p>
+                        <span>Электронный кошелёк</span>
+                    </div>
+                    <div class="chat-bank-card" data-chat-bank="other">
+                        <img src="https://via.placeholder.com/260x120?text=Банк" alt="Другой банк">
+                        <h4>Другой банк</h4>
+                        <p>Сначала банк → потом сумма/сообщение</p>
+                        <span>Любой банк</span>
+                    </div>
+                </div>
+
+                <div id="chat-ym-block">
+                    <div id="chat-ym-title">Сумма для ЮMoney</div>
+                    <div class="chat-ym-grid" id="chat-ym-grid">
+                        <button class="chat-ym-btn" data-chat-ym-sum="10">10</button>
+                        <button class="chat-ym-btn" data-chat-ym-sum="50">50</button>
+                        <button class="chat-ym-btn" data-chat-ym-sum="100">100</button>
+                        <button class="chat-ym-btn" data-chat-ym-sum="250">250</button>
+                        <button class="chat-ym-btn" data-chat-ym-sum="500">500</button>
+                        <button class="chat-ym-btn" data-chat-ym-sum="1000">1k</button>
+                        <button class="chat-ym-btn other" id="chat-ym-other">Своя</button>
+                    </div>
+                    <div id="chat-ym-custom-wrap" style="height:0;opacity:0;overflow:hidden;">
+                        <div id="chat-ym-custom-inner">
+                            <input type="number" id="chat-ym-custom-input" placeholder="Сумма" min="1" max="10000">
+                            <button id="chat-ym-custom-btn2">ЮMoney</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-  const wallet = '4100117753597226';
-
-  const sumInput = document.getElementById('sumInput');
-  const amountText = document.getElementById('amountText');
-  const generateButton = document.getElementById('generateButton');
-  const payButton = document.getElementById('payButton');
-  const qrCode = document.getElementById('qrCode');
-
-  generateButton.onclick = () => {
-    const sum = parseInt(sumInput.value);
-
-    if (!sum || sum < 1) {
-      alert('Введите сумму');
-      return;
+    // ===== общие функции =====
+    function openYooMoney(sum,labelPrefix){
+        const form=document.createElement("form");
+        form.method="POST";
+        form.action="https://yoomoney.ru/quickpay/confirm";
+        form.target="_blank";
+        const data={
+            receiver:"4100117753597226",
+            "quickpay-form":"donate",
+            paymentType:"AC",
+            targets:"Поддержка проекта",
+            comment:"Поддержка проекта",
+            label:labelPrefix+String(sum),
+            "need-fio":"false",
+            "need-email":"false",
+            "need-phone":"false",
+            "need-address":"false",
+            sum:String(sum)
+        };
+        Object.entries(data).forEach(([k,v])=>{
+            const input=document.createElement("input");
+            input.type="hidden";
+            input.name=k;
+            input.value=v;
+            form.appendChild(input);
+        });
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
     }
+    let chatSelectedBank = null;
+    let chatStoredYMSum = null;
+    // ===== ОБЪЕДИНЁННАЯ ФУНКЦИЯ ПУБЛИКАЦИИ СООБЩЕНИЯ В ЧАТЕ =====
+    function postToChat(options) {
+        const {
+            name,
+            surname,
+            amount = null,
+            message,
+            isDonate = false
+        } = options;
 
-    amountText.textContent = `${sum} ₽`;
+        // Сохраняем имя и фамилию в localStorage
+        if (name) localStorage.setItem("chatName", name);
+        if (surname) localStorage.setItem("chatSurname", surname);
 
-    const params = new URLSearchParams({
-      receiver: wallet,
-      sum: sum,
-      quickpay_form: 'shop',
-      targets: 'Поддержка проекта'
+        // Формируем отображаемое имя
+        const displayName = name || "Аноним";
+        const surnameShort = surname ? " " + surname.charAt(0) + "." : "";
+
+        const messages = document.getElementById("chat-messages");
+        const wrap = document.createElement("div");
+        wrap.className = "msg" + (isDonate ? " donate" : "");
+
+        // Заголовок
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        meta.textContent = displayName + surnameShort;
+        if (isDonate && amount) meta.textContent += " • " + amount + " ₽";
+        wrap.appendChild(meta);
+
+        // Сообщение
+        const body = document.createElement("div");
+        body.className = "text";
+        body.textContent = message || "";
+        wrap.appendChild(body);
+
+        messages.appendChild(wrap);
+        messages.scrollTop = messages.scrollHeight;
+    }
+    // ===== автозаполнение имени/фамилии =====
+    document.addEventListener("DOMContentLoaded",()=>{
+        const savedName=localStorage.getItem("chatName");
+        const savedSurname=localStorage.getItem("chatSurname");
+        if(savedName)document.getElementById("chat-name").value=savedName;
+        if(savedSurname)document.getElementById("chat-surname").value=savedSurname;
     });
+    // ===== внешний блок банков =====
+    const bankCardsMain=document.querySelectorAll("#bank-options-main .bank-card");
+    const ymPanelMain=document.getElementById("ym-panel-main");
+    let lastMainYMSum=null;
+    bankCardsMain.forEach(card=>{
+        card.addEventListener("click",()=>{
+            bankCardsMain.forEach(c=>c.classList.remove("selected"));
+            card.classList.add("selected");
+            const bank=card.getAttribute("data-bank");
+            if(bank==="yoomoney"){
+                ymPanelMain.style.display="block";
+                ymPanelMain.scrollIntoView({behavior:"smooth"});
+            }else{
+                ymPanelMain.style.display="none";
+                if(bank==="sber")window.open("https://www.sberbank.ru/","_blank");
+                if(bank==="tinkoff")window.open("https://www.tinkoff.ru/","_blank");
+            }
+        });
+    });
+    document.querySelectorAll("#ym-grid-main .ym-btn[data-ym-sum]").forEach(btn=>{
+        btn.addEventListener("click",()=>{
+            const sum=parseInt(btn.getAttribute("data-ym-sum"),10);
+            if(isNaN(sum))return;
+            lastMainYMSum=sum;
+            openYooMoney(sum,"main_");
+            document.getElementById("ym-main-confirm-amount").textContent=sum+" ₽";
+            document.getElementById("ym-main-confirm").style.display="block";
+            document.getElementById("ym-main-confirm-msg").focus();
+        });
+    });
+    const ymMainOther=document.getElementById("ym-main-other");
+    const ymMainCustomWrap=document.getElementById("ym-main-custom-wrap");
+    const ymMainCustomInput=document.getElementById("ym-main-custom-input");
+    const ymMainCustomGo=document.getElementById("ym-main-custom-go");
+    ymMainOther.addEventListener("click",()=>{
+        if(ymMainCustomWrap.style.height==="0px"||!ymMainCustomWrap.style.height){
+            ymMainCustomWrap.style.height="40px";
+            ymMainCustomWrap.style.opacity="1";
+            ymMainCustomInput.focus();
+        }else{
+            ymMainCustomWrap.style.height="0";
+            ymMainCustomWrap.style.opacity="0";
+        }
+    });
+    ymMainCustomGo.addEventListener("click",()=>{
+        const val=Number(ymMainCustomInput.value);
+        if(isNaN(val)||val<1||val>10000){alert("Введите сумму от 1 до 10000 ₽");return;}
+        lastMainYMSum=val;
+        openYooMoney(val,"main_");
+        document.getElementById("ym-main-confirm-amount").textContent=val+" ₽";
+        document.getElementById("ym-main-confirm").style.display="block";
+        document.getElementById("ym-main-confirm-msg").focus();
+    });
+    document.getElementById("ym-main-confirm-send").addEventListener("click", () => {
+        const msg = document.getElementById("ym-main-confirm-msg").value.trim();
+        if (!msg) {
+            alert("Введите сообщение");
+            return;
+        }
 
-    const paymentUrl = `https://yoomoney.ru/quickpay/confirm?${params.toString()}`;
-    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(paymentUrl)}`;
+        const name = document.getElementById("chat-name").value.trim() || "Аноним";
+        const surname = document.getElementById("chat-surname").value.trim();
 
-    qrCode.src = qrUrl;
-    qrCode.style.display = 'block';
-    payButton.style.display = 'inline-block';
+        postToChat({
+            name: name,
+            surname: surname,
+            amount: lastMainYMSum,
+            message: msg,
+            isDonate: true
+        });
 
-    payButton.onclick = () => window.open(paymentUrl, '_blank');
-  };
+        document.getElementById("ym-main-confirm-msg").value = "";
+    });
+    // ===== чат: открытие/закрытие =====
+    const chatToggle=document.getElementById("chat-toggle");
+    const chatPanel=document.getElementById("chat-panel");
+    const chatBackdrop=document.getElementById("chat-backdrop");
+    const chatClose=document.getElementById("chat-close");
+    chatToggle.onclick=()=>{chatPanel.classList.add("open");chatBackdrop.classList.add("visible");};
+    chatClose.onclick=()=>{chatPanel.classList.remove("open");chatBackdrop.classList.remove("visible");};
+    chatBackdrop.onclick=()=>{chatPanel.classList.remove("open");chatBackdrop.classList.remove("visible");};
+    // Удалён дублирующий обработчик отправки сообщения
+    // ===== чат: донат-панель =====
+    const chatDonateSwitch=document.getElementById("chat-donate-switch");
+    const chatDonatePanel=document.getElementById("chat-donate-panel");
+    chatDonateSwitch.onchange=()=>{chatDonatePanel.style.display=chatDonateSwitch.checked?"block":"none";};
+    const chatBankCards=document.querySelectorAll(".chat-bank-card");
+    const chatYMBlock=document.getElementById("chat-ym-block");
+    chatBankCards.forEach(card=>{
+        card.addEventListener("click",()=>{
+            chatBankCards.forEach(c=>c.classList.remove("selected"));
+            card.classList.add("selected");
+            chatSelectedBank=card.getAttribute("data-chat-bank");
+            if(chatSelectedBank==="yoomoney"){
+                chatYMBlock.style.display="block";
+            }else{
+                chatYMBlock.style.display="none";
+                if(chatSelectedBank==="sber")window.open("https://www.sberbank.ru/","_blank");
+                if(chatSelectedBank==="tinkoff")window.open("https://www.tinkoff.ru/","_blank");
+                if(chatSelectedBank==="other")window.open("https://www.google.com/search?q=банк+онлайн+оплата","_blank");
+            }
+        });
+    });
+    // ===== чат: ЮMoney внутри чата =====
+    document.querySelectorAll("#chat-ym-grid .chat-ym-btn[data-chat-ym-sum]").forEach(btn=>{
+        btn.addEventListener("click",()=>{
+            const sum=parseInt(btn.getAttribute("data-chat-ym-sum"),10);
+            if(isNaN(sum))return;
+            chatStoredYMSum=sum;
+            openYooMoney(sum,"chat_");
+            document.getElementById("chat-donate-switch").checked = true;
+            document.getElementById("chat-donate-panel").style.display = "block";
+            document.getElementById("chat-ym-block").style.display = "none";
+            document.getElementById("chat-msg").focus();
+        });
+    });
+    const chatYMOther=document.getElementById("chat-ym-other");
+    const chatYMCustomWrap=document.getElementById("chat-ym-custom-wrap");
+    const chatYMCustomInput=document.getElementById("chat-ym-custom-input");
+    const chatYMCustomBtn2=document.getElementById("chat-ym-custom-btn2");
+    chatYMOther.addEventListener("click",()=>{
+        if(chatYMCustomWrap.style.height==="0px"||!chatYMCustomWrap.style.height){
+            chatYMCustomWrap.style.height="32px";
+            chatYMCustomWrap.style.opacity="1";
+            chatYMCustomInput.focus();
+        }else{
+            chatYMCustomWrap.style.height="0";
+            chatYMCustomWrap.style.opacity="0";
+        }
+    });
+    chatYMCustomBtn2.addEventListener("click",()=>{
+        const val=Number(chatYMCustomInput.value);
+        if(isNaN(val)||val<1||val>10000){alert("Введите сумму от 1 до 10000 ₽");return;}
+        chatStoredYMSum=val;
+        openYooMoney(val,"chat_");
+        document.getElementById("chat-donate-switch").checked = true;
+        document.getElementById("chat-donate-panel").style.display = "block";
+        document.getElementById("chat-ym-custom-wrap").style.height = "0";
+        document.getElementById("chat-ym-custom-wrap").style.opacity = "0";
+        document.getElementById("chat-msg").focus();
+    });
+    // ===== обновлённая логика отправки =====
+    document.getElementById("chat-send").addEventListener("click", () => {
+        const name = document.getElementById("chat-name").value.trim() || "Аноним";
+        const surname = document.getElementById("chat-surname").value.trim();
+        const msg = document.getElementById("chat-msg").value.trim();
+
+        if (!msg) return;
+
+        const isDonateMode = document.getElementById("chat-donate-switch").checked;
+
+        // Если галка доната нажата - отправляем как донат, иначе как обычное сообщение
+        postToChat({
+            name: name,
+            surname: surname,
+            amount: chatStoredYMSum || 10,
+            message: msg,
+            isDonate: isDonateMode
+        });
+
+        // Сброс состояния
+        document.getElementById("chat-msg").value = "";
+        if (isDonateMode) {
+            chatStoredYMSum = null;
+            document.getElementById("chat-donate-switch").checked = false;
+            document.getElementById("chat-donate-panel").style.display = "none";
+        }
+    });
 </script>
-
 </body>
 </html>
