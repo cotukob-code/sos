@@ -9,18 +9,46 @@ const server = http.createServer(app);
 
 const wss = new WebSocket.Server({ noServer: true });
 
+// ХРАНИЛИЩЕ СООБЩЕНИЙ
+let messages = [];
+
 wss.on("connection", ws => {
     console.log("Client connected");
 
-    ws.on("message", msg => {
-        // ВСЕГДА отправляем JSON-строку
-        const text = msg.toString();
+    // Отправляем историю новому клиенту
+    ws.send(JSON.stringify({
+        type: "history",
+        messages
+    }));
 
-        wss.clients.forEach(client => {
-            if (client.readyState === WebSocket.OPEN) {
-                client.send(text);
-            }
-        });
+    ws.on("message", msg => {
+        const text = msg.toString();
+        let data;
+
+        try {
+            data = JSON.parse(text);
+        } catch {
+            return;
+        }
+
+        if (data.type === "chat") {
+            // сохраняем сообщение
+            messages.push({
+                name: data.name,
+                text: data.text
+            });
+
+            // рассылаем всем
+            wss.clients.forEach(client => {
+                if (client.readyState === WebSocket.OPEN) {
+                    client.send(JSON.stringify({
+                        type: "chat",
+                        name: data.name,
+                        text: data.text
+                    }));
+                }
+            });
+        }
     });
 
     ws.on("close", () => console.log("Client disconnected"));
