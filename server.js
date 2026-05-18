@@ -13,9 +13,12 @@ wss.on("connection", ws => {
     console.log("Client connected");
 
     ws.on("message", msg => {
+        // ВСЕГДА отправляем JSON-строку
+        const text = msg.toString();
+
         wss.clients.forEach(client => {
             if (client.readyState === WebSocket.OPEN) {
-                client.send(msg.toString());
+                client.send(text);
             }
         });
     });
@@ -30,7 +33,7 @@ server.on("upgrade", (req, socket, head) => {
 });
 
 app.get("/", (req, res) => {
-    res.send("WebSocket server is running");
+    res.send("WS server running");
 });
 
 server.listen(PORT, () => {
