@@ -659,7 +659,9 @@
     </script>
 
    <script>
-// === Навигация ===
+// =========================
+//   НАВИГАЦИЯ
+// =========================
 const navLinks = document.querySelectorAll(".header-nav a");
 const pages = document.querySelectorAll(".page");
 
@@ -675,7 +677,9 @@ navLinks.forEach(link => {
     });
 });
 
-// === Имя пользователя ===
+// =========================
+//   ИМЯ ПОЛЬЗОВАТЕЛЯ
+// =========================
 let userName = localStorage.getItem("sotik_name");
 
 function validateName(input) {
@@ -690,7 +694,7 @@ function saveName() {
     const input = document.getElementById("nameInput").value;
     const valid = validateName(input);
     if (!valid) {
-        alert("Введите корректное имя (минимум 2 символа)");
+        alert("Введите корректное имя");
         return;
     }
     localStorage.setItem("sotik_name", valid);
@@ -707,35 +711,29 @@ if (!userName) {
     document.querySelector(".chat-input button").disabled = false;
 }
 
-// === WebSocket (Render) ===
+// =========================
+//   ОНЛАЙН WEBSOCKET ЧАТ
+// =========================
+
 let socket;
 
-function connect() {
+function connectWS() {
     socket = new WebSocket("wss://sos-atif.onrender.com");
 
     socket.onopen = () => {
-        console.log("✅ Подключено к чат-серверу");
+        console.log("WS connected");
     };
 
     socket.onmessage = async (event) => {
         let data;
 
-        // Render иногда отдаёт Blob → нужно читать текст
         if (event.data instanceof Blob) {
             const text = await event.data.text();
-            try {
-                data = JSON.parse(text);
-            } catch {
-                console.error("❌ Сервер прислал не JSON:", text);
-                return;
-            }
+            try { data = JSON.parse(text); }
+            catch { console.error("BAD JSON:", text); return; }
         } else {
-            try {
-                data = JSON.parse(event.data);
-            } catch {
-                console.error("❌ Ошибка JSON:", event.data);
-                return;
-            }
+            try { data = JSON.parse(event.data); }
+            catch { console.error("BAD JSON:", event.data); return; }
         }
 
         if (data.type === "chat") {
@@ -744,33 +742,36 @@ function connect() {
     };
 
     socket.onclose = () => {
-        console.log("⚠️ Соединение закрыто. Переподключение...");
-        setTimeout(connect, 2000);
+        console.log("WS closed, reconnecting...");
+        setTimeout(connectWS, 2000);
     };
 
     socket.onerror = (err) => {
-        console.error("❌ Ошибка WebSocket:", err);
+        console.error("WS error:", err);
     };
 }
 
-connect();
+connectWS();
 
-// === Отправка сообщений ===
+// =========================
+//   ОТПРАВКА СООБЩЕНИЯ
+// =========================
+
 function sendMsg() {
     const msg = document.getElementById("msg");
     const text = msg.value.trim();
     if (!text) return;
-    if (!userName) {
-        alert("Введите имя");
-        return;
-    }
+
+    const name = userName || "Гость";
+
+    const payload = JSON.stringify({
+        type: "chat",
+        name,
+        text
+    });
 
     if (socket.readyState === WebSocket.OPEN) {
-        socket.send(JSON.stringify({
-            type: "chat",
-            name: userName,
-            text: text
-        }));
+        socket.send(payload);
     }
 
     msg.value = "";
@@ -783,7 +784,10 @@ document.getElementById("msg").addEventListener("keydown", e => {
     }
 });
 
-// === Добавление сообщений ===
+// =========================
+//   ДОБАВЛЕНИЕ СООБЩЕНИЯ В ЧАТ
+// =========================
+
 function addMessageToChat(name, text) {
     const chat = document.getElementById("chat");
     const div = document.createElement("div");
@@ -793,7 +797,10 @@ function addMessageToChat(name, text) {
     chat.scrollTop = chat.scrollHeight;
 }
 
-// === Донаты ===
+// =========================
+//   ДОНАТЫ
+// =========================
+
 function toggleBanks() {
     const tabs = document.getElementById("bankTabs");
     const flag = document.getElementById("donateFlag");
@@ -820,7 +827,7 @@ function donateSber() {
         <div class="don-wrap">
             <div class="don-title">Сбер</div>
             <img src="${qr}" class="don-qr" onclick="window.open('${link}','_blank')">
-            <button class="don-btn" onclick="this.innerText='✅ Оплачено'">Оплатил</button>
+            <button class="don-btn" onclick="this.innerText='✔ Оплачено'">Оплатил</button>
         </div>
     `;
     document.getElementById("donateContent").style.display = "block";
@@ -834,7 +841,7 @@ function donateTBank() {
         <div class="don-wrap">
             <div class="don-title">Т‑Банк</div>
             <img src="${qr}" class="don-qr" onclick="window.open('${link}','_blank')">
-            <button class="don-btn" onclick="this.innerText='✅ Оплачено'">Оплатил</button>
+            <button class="don-btn" onclick="this.innerText='✔ Оплачено'">Оплатил</button>
         </div>
     `;
     document.getElementById("donateContent").style.display = "block";
@@ -848,7 +855,7 @@ function donateVTB() {
         <div class="don-wrap">
             <div class="don-title">ВТБ</div>
             <img src="${qr}" class="don-qr" onclick="window.open('${link}','_blank')">
-            <button class="don-btn" onclick="this.innerText='✅ Оплачено'">Оплатил</button>
+            <button class="don-btn" onclick="this.innerText='✔ Оплачено'">Оплатил</button>
         </div>
     `;
     document.getElementById("donateContent").style.display = "block";
@@ -876,7 +883,7 @@ function donateYooMoneyDo() {
         <div class="don-wrap">
             <div class="don-title">ЮMoney</div>
             <img src="${qr}" class="don-qr" onclick="window.open('${paymentUrl}','_blank')">
-            <button class="don-btn" onclick="this.innerText='✅ Оплачено'">Оплатил</button>
+            <button class="don-btn" onclick="this.innerText='✔ Оплачено'">Оплатил</button>
         </div>
     `;
     document.getElementById("donateContent").style.display = "block";
@@ -900,7 +907,10 @@ function toggleDonateContent(bank) {
     else if (bank === "ВТБ") donateVTB();
 }
 
-// === Свайпы (мобилки) ===
+// =========================
+//   СВАЙПЫ (МОБИЛКИ)
+// =========================
+
 let startX = 0;
 let endX = 0;
 
@@ -920,6 +930,7 @@ document.addEventListener("touchend", e => {
     else if (startX - endX > 80) chatPanel.classList.remove("chat-open");
 });
 </script>
+
 
 </body>
 </html>
