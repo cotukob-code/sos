@@ -1,525 +1,494 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head><meta charset="UTF-8"><title>СайтСотика — Главная</title>
-    <style>:root{--bg:#02030a;--accent:#ff9900;--accent2:#ff4b00;--accent3:#ffdd99;--muted:#9a9ab5;--glass:rgba(10,10,25,0.82);--glass-strong:rgba(10,10,25,0.96);}*{margin:0;padding:0;box-sizing:border-box;}html,body{height:100%;overflow:hidden;font-family:system-ui,sans-serif;background:radial-gradient(circle at 0 0,#26264a 0,transparent 55%),radial-gradient(circle at 100% 0,#3a1f3f 0,transparent 55%),radial-gradient(circle at 50% 100%,#1b2b3f 0,transparent 60%),var(--bg);color:#fff}.bg-orbit{position:absolute;inset:-20%;background:radial-gradient(circle at 0 0,rgba(255,255,255,0.08),transparent 55%),radial-gradient(circle at 100% 0,rgba(255,153,0,0.18),transparent 55%),radial-gradient(circle at 0 100%,rgba(0,180,255,0.18),transparent 55%),radial-gradient(circle at 100% 100%,rgba(255,75,0,0.18),transparent 55%);opacity:.7;filter:blur(4px);pointer-events:none;animation:orbitPulse 18s ease-in-out infinite alternate}.bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:40px 40px;opacity:.4;mix-blend-mode:screen;pointer-events:none;animation:gridDrift 40s linear infinite}.bg-lines{position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(-120deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:220px 220px;opacity:.25;mix-blend-mode:screen;pointer-events:none;animation:linesDrift 60s linear infinite}@keyframes orbitPulse{0%{transform:scale(1)}100%{transform:scale(1.05)}}@keyframes gridDrift{0%{transform:translate(0,0)}100%{transform:translate(-40px,-40px)}}@keyframes linesDrift{0%{transform:translate(0,0)}100%{transform:translate(80px,40px)}}.page-shell{position:relative;z-index:1;height:100%;padding:20px;display:flex;flex-direction:column;gap:20px}.header{padding:14px 20px;border-radius:20px;background:var(--glass-strong);border:1px solid rgba(255,153,0,0.3);box-shadow:0 0 40px rgba(0,0,0,0.9),inset 0 0 40px rgba(255,153,0,0.15);backdrop-filter:blur(18px);display:flex;justify-content:space-between;align-items:center}.header-left{display:flex;flex-direction:column}.header-title{font-size:20px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--accent3)}.header-sub{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}.header-nav{display:flex;gap:16px;padding:8px 16px;border-radius:14px;background:rgba(255,153,0,0.08);border:1px solid rgba(255,153,0,0.25);box-shadow:0 0 20px rgba(0,0,0,0.6),inset 0 0 20px rgba(255,153,0,0.12);backdrop-filter:blur(10px)}.header-nav a{text-decoration:none;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent3);padding:6px 8px;border-radius:10px;transition:.2s;cursor:pointer}.header-nav a:hover,.header-nav a.active{background:rgba(255,153,0,0.2);color:#fff}.content{flex:1;min-height:0;position:relative;overflow:hidden}.page{position:absolute;inset:0;display:none;opacity:0;transition:opacity .25s ease}.page-active{display:block;opacity:1}.page-grid{height:100%;display:grid;grid-template-columns:1.2fr 1fr;gap:20px}.panel{border-radius:24px;background:radial-gradient(circle at 0 0,rgba(255,255,255,0.06) 0,transparent 55%),radial-gradient(circle at 100% 100%,rgba(255,153,0,0.18) 0,transparent 55%),var(--glass);border:1px solid rgba(255,153,0,0.25);box-shadow:0 0 40px rgba(0,0,0,0.95),inset 0 0 40px rgba(255,153,0,0.15);backdrop-filter:blur(18px);display:flex;flex-direction:column;overflow:hidden;padding:0}.panel-header{padding:14px 20px;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent3);background:rgba(0,0,0,0.35);border-bottom:1px solid rgba(255,153,0,0.25);flex-shrink:0}.panel-body{padding:16px 20px;font-size:14px;line-height:1.6;overflow:auto}.panel-body h3{font-size:16px;margin-bottom:8px;color:var(--accent3)}.panel-body p{margin-bottom:10px;color:#e5e5f5}.panel-body ul{margin-left:18px;margin-bottom:10px;color:#e5e5f5}.panel-body li{margin-bottom:4px}.panel-stream .stream-box{width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;flex-shrink:0}.panel-stream .stream-box iframe{width:100%;height:100%;border:0;display:block}.panel-chat .chat-box{flex:1;background:#000;display:flex;flex-direction:column;overflow:hidden;border-radius:18px 18px 0 0}.chat-messages{flex:1;padding:12px;overflow-y:auto;font-size:13px;line-height:1.5}.chat-message{margin-bottom:6px;color:#e5e5f5;word-break:break-word}.name-setup{padding:12px;background:rgba(0,0,0,0.7);border-bottom:1px solid rgba(255,153,0,0.25);display:flex;gap:10px}.name-setup input{flex:1;padding:10px;background:#111;border:1px solid rgba(255,153,0,0.4);color:#fff;border-radius:8px}.name-setup button{padding:10px 16px;background:var(--accent);border:none;color:#000;font-weight:700;cursor:pointer;border-radius:8px}.bank-tabs{display:none;gap:10px;padding:6px 10px 0;background:rgba(0,0,0,0.85);border-top:1px solid rgba(255,153,0,0.35)}.bank-tab{padding:6px 12px;background:rgba(255,153,0,0.15);border:1px solid rgba(255,153,0,0.35);border-bottom:none;border-radius:8px 8px 0 0;color:var(--accent3);font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.2s}.bank-tab:hover{background:rgba(255,153,0,0.25);transform:translateY(-6px);box-shadow:0 -8px 20px rgba(255,153,0,0.35),0 0 20px rgba(0,0,0,0.8)}#donateContent{display:none;background:#000}.chat-input{display:flex;gap:10px;align-items:center;border-top:1px solid rgba(255,153,0,0.35);background:rgba(0,0,0,0.85);padding:10px}.chat-input input[type=text]{flex:1;padding:10px;background:transparent;border:none;color:#fff;outline:none}.chat-input button{padding:10px 16px;background:var(--accent);border:none;color:#000;font-weight:700;cursor:pointer}.chat-input button:hover{background:var(--accent2);color:#fff}.chat-input label{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--accent3);cursor:pointer;white-space:nowrap}.chat-input input[type=checkbox]{accent-color:var(--accent)}.don-wrap{padding:12px;border-top:1px solid rgba(255,153,0,0.35);background:#000;text-align:center}.don-title{font-size:14px;margin-bottom:8px;color:#ffdd99}.don-label{font-size:12px;color:#ccc;margin-bottom:6px}.don-input{width:100%;padding:10px;background:#111;border:1px solid #444;color:#fff;border-radius:8px;margin-bottom:12px}.don-qr{width:120px;height:120px;border-radius:12px;margin:12px auto;display:block;box-shadow:0 0 10px rgba(0,0,0,0.5);object-fit:cover;cursor:pointer;transition:transform .2s}.don-qr:hover{transform:scale(1.05)}.don-btn{display:inline-block;padding:8px 16px;background:#3bd16f;border:none;color:#000;font-weight:700;font-size:13px;border-radius:8px;text-decoration:none;cursor:pointer;margin-top:8px}.don-btn:hover{background:#2ec55e;transform:translateY(-1px)}@media(max-width:900px){.page-grid{display:block}.panel-stream{margin-bottom:16px}.panel-chat{position:fixed;top:0;right:-100%;width:100%;height:100%;transition:right .3s ease;z-index:9999}.panel-chat.chat-open{right:0}.panel-stream .stream-box{width:100%;aspect-ratio:16/9}}</style>
-<style>
-    /* === Глобальные переменные === */
-    :root {
-        --bg: #02030a;               /* Основной фон страницы */
-        --accent: #ff9900;           /* Основной акцентный цвет (оранжевый) */
-        --accent2: #ff4b00;          /* Темный акцент (для hover) */
-        --accent3: #ffdd99;          /* Светлый акцент (для текста) */
-        --muted: #9a9ab5;            /* Приглушённый цвет (для подзаголовков) */
-        --glass: rgba(10, 10, 25, 0.82);     /* Прозрачное стекло (фон панелей) */
-        --glass-strong: rgba(10, 10, 25, 0.96); /* Более плотное стекло (шапка) */
-    }
+<head>
+    <meta charset="UTF-8">
+    <title>СайтСотика — Главная</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    /* === Сброс и базовые стили === */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+    <style>
+        /* === Глобальные переменные === */
+        :root {
+            --bg: #02030a;
+            --accent: #ff9900;
+            --accent2: #ff4b00;
+            --accent3: #ffdd99;
+            --muted: #9a9ab5;
+            --glass: rgba(10, 10, 25, 0.82);
+            --glass-strong: rgba(10, 10, 25, 0.96);
+        }
 
-    /* === Стили для html и body === */
-    html, body {
-        height: 100%;               /* На всю высоту экрана */
-        overflow: hidden;           /* Отключаем скролл */
-        font-family: system-ui, sans-serif; /* Современный шрифт */
-        /* Фон из радиальных градиентов — создаёт объём и глубину */
-        background: radial-gradient(circle at 0 0, #26264a 0, transparent 55%),
-                    radial-gradient(circle at 100% 0, #3a1f3f 0, transparent 55%),
-                    radial-gradient(circle at 50% 100%, #1b2b3f 0, transparent 60%),
-                    var(--bg);
-        color: #fff;                /* Белый текст по умолчанию */
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* === Фон: орбиты (медленно пульсируют) === */
-    .bg-orbit {
-        position: absolute;
-        inset: -20%;                /* Занимает больше экрана */
-        background: radial-gradient(circle at 0 0, rgba(255,255,255,0.08), transparent 55%),
-                    radial-gradient(circle at 100% 0, rgba(255,153,0,0.18), transparent 55%),
-                    radial-gradient(circle at 0 100%, rgba(0,180,255,0.18), transparent 55%),
-                    radial-gradient(circle at 100% 100%, rgba(255,75,0,0.18), transparent 55%);
-        opacity: .7;
-        filter: blur(4px);          /* Размытие для мягкости */
-        pointer-events: none;       /* Не мешает кликам */
-        animation: orbitPulse 18s ease-in-out infinite alternate; /* Пульсация */
-        z-index: -3;                /* Глубоко под слоями */
-    }
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: system-ui, sans-serif;
+            background: radial-gradient(circle at 0 0, #26264a 0, transparent 55%),
+                        radial-gradient(circle at 100% 0, #3a1f3f 0, transparent 55%),
+                        radial-gradient(circle at 50% 100%, #1b2b3f 0, transparent 60%),
+                        var(--bg);
+            color: #fff;
+        }
 
-    /* === Фон: сетка (медленно движется) === */
-    .bg-grid {
-        position: absolute;
-        inset: 0;
-        background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                          linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-        background-size: 40px 40px; /* Размер ячейки */
-        opacity: .4;
-        mix-blend-mode: screen;     /* Смешивание с фоном */
-        pointer-events: none;
-        animation: gridDrift 40s linear infinite; /* Дрейф влево-вверх */
-        z-index: -2;
-    }
+        .bg-orbit {
+            position: absolute;
+            inset: -20%;
+            background: radial-gradient(circle at 0 0, rgba(255,255,255,0.08), transparent 55%),
+                        radial-gradient(circle at 100% 0, rgba(255,153,0,0.18), transparent 55%),
+                        radial-gradient(circle at 0 100%, rgba(0,180,255,0.18), transparent 55%),
+                        radial-gradient(circle at 100% 100%, rgba(255,75,0,0.18), transparent 55%);
+            opacity: .7;
+            filter: blur(4px);
+            pointer-events: none;
+            animation: orbitPulse 18s ease-in-out infinite alternate;
+            z-index: -3;
+        }
 
-    /* === Фон: диагональные линии (медленно дрейфуют) === */
-    .bg-lines {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(120deg, rgba(255,255,255,0.04) 1px, transparent 1px),
-                    linear-gradient(-120deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-        background-size: 220px 220px; /* Крупные ромбы */
-        opacity: .25;
-        mix-blend-mode: screen;
-        pointer-events: none;
-        animation: linesDrift 60s linear infinite; /* Дрейф вправо-вниз */
-        z-index: -1;
-    }
+        .bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: .4;
+            mix-blend-mode: screen;
+            pointer-events: none;
+            animation: gridDrift 40s linear infinite;
+            z-index: -2;
+        }
 
-    /* === Анимации фона === */
-    @keyframes orbitPulse {
-        0% { transform: scale(1); }
-        100% { transform: scale(1.05); }
-    }
+        .bg-lines {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+                        linear-gradient(-120deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 220px 220px;
+            opacity: .25;
+            mix-blend-mode: screen;
+            pointer-events: none;
+            animation: linesDrift 60s linear infinite;
+            z-index: -1;
+        }
 
-    @keyframes gridDrift {
-        0% { transform: translate(0, 0); }
-        100% { transform: translate(-40px, -40px); }
-    }
+        @keyframes orbitPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
 
-    @keyframes linesDrift {
-        0% { transform: translate(0, 0); }
-        100% { transform: translate(80px, 40px); }
-    }
+        @keyframes gridDrift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-40px, -40px); }
+        }
 
-    /* === Основной контейнер страницы === */
-    .page-shell {
-        position: relative;
-        z-index: 1;                 /* Над фонами */
-        height: 100%;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;                  /* Отступы между блоками */
-    }
+        @keyframes linesDrift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(80px, 40px); }
+        }
 
-    /* === Шапка сайта === */
-    .header {
-        padding: 14px 20px;
-        border-radius: 20px;
-        background: var(--glass-strong);
-        border: 1px solid rgba(255,153,0,0.3);
-        box-shadow: 0 0 40px rgba(0,0,0,0.9), inset 0 0 40px rgba(255,153,0,0.15);
-        backdrop-filter: blur(18px); /* Эффект стекла */
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+        .page-shell {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-    /* Левая часть шапки (логотип и подпись) */
-    .header-left {
-        display: flex;
-        flex-direction: column;
-    }
+        .header {
+            padding: 14px 20px;
+            border-radius: 20px;
+            background: var(--glass-strong);
+            border: 1px solid rgba(255,153,0,0.3);
+            box-shadow: 0 0 40px rgba(0,0,0,0.9), inset 0 0 40px rgba(255,153,0,0.15);
+            backdrop-filter: blur(18px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .header-title {
-        font-size: 20px;
-        font-weight: 900;
-        letter-spacing: .18em;
-        text-transform: uppercase;
-        color: var(--accent3);
-    }
+        .header-left {
+            display: flex;
+            flex-direction: column;
+        }
 
-    .header-sub {
-        font-size: 10px;
-        letter-spacing: .2em;
-        text-transform: uppercase;
-        color: var(--muted);
-    }
+        .header-title {
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--accent3);
+        }
 
-    /* Навигация в шапке */
-    .header-nav {
-        display: flex;
-        gap: 16px;
-        padding: 8px 16px;
-        border-radius: 14px;
-        background: rgba(255,153,0,0.08);
-        border: 1px solid rgba(255,153,0,0.25);
-        box-shadow: 0 0 20px rgba(0,0,0,0.6), inset 0 0 20px rgba(255,153,0,0.12);
-        backdrop-filter: blur(10px);
-    }
+        .header-sub {
+            font-size: 10px;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
 
-    .header-nav a {
-        text-decoration: none;
-        font-size: 12px;
-        letter-spacing: .16em;
-        text-transform: uppercase;
-        color: var(--accent3);
-        padding: 6px 8px;
-        border-radius: 10px;
-        transition: .2s;
-        cursor: pointer;
-    }
+        .header-nav {
+            display: flex;
+            gap: 16px;
+            padding: 8px 16px;
+            border-radius: 14px;
+            background: rgba(255,153,0,0.08);
+            border: 1px solid rgba(255,153,0,0.25);
+            box-shadow: 0 0 20px rgba(0,0,0,0.6), inset 0 0 20px rgba(255,153,0,0.12);
+            backdrop-filter: blur(10px);
+        }
 
-    .header-nav a:hover,
-    .header-nav a.active {
-        background: rgba(255,153,0,0.2);
-        color: #fff;
-    }
+        .header-nav a {
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--accent3);
+            padding: 6px 8px;
+            border-radius: 10px;
+            transition: .2s;
+            cursor: pointer;
+        }
 
-    /* === Основное содержимое === */
-    .content {
-        flex: 1;                    /* Занимает всё свободное место */
-        min-height: 0;
-        position: relative;
-        overflow: hidden;           /* Скрываем за пределы */
-    }
+        .header-nav a:hover,
+        .header-nav a.active {
+            background: rgba(255,153,0,0.2);
+            color: #fff;
+        }
 
-    /* === Страницы (вкладки) === */
-    .page {
-        position: absolute;
-        inset: 0;
-        display: none;              /* Скрыты по умолчанию */
-        opacity: 0;
-        transition: opacity .25s ease;
-    }
+        .content {
+            flex: 1;
+            min-height: 0;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .page-active {
-        display: block;
-        opacity: 1;
-    }
+        .page {
+            position: absolute;
+            inset: 0;
+            display: none;
+            opacity: 0;
+            transition: opacity .25s ease;
+        }
 
-    /* === Сетка: стрим + чат или две панели === */
-    .page-grid {
-        height: 100%;
-        display: grid;
-        grid-template-columns: 1.2fr 1fr; /* Стрим шире */
-        gap: 20px;
-    }
+        .page-active {
+            display: block;
+            opacity: 1;
+        }
 
-    /* === Общий стиль панели === */
-    .panel {
-        border-radius: 24px;
-        background: radial-gradient(circle at 0 0, rgba(255,255,255,0.06) 0, transparent 55%),
-                    radial-gradient(circle at 100% 100%, rgba(255,153,0,0.18) 0, transparent 55%),
-                    var(--glass);
-        border: 1px solid rgba(255,153,0,0.25);
-        box-shadow: 0 0 40px rgba(0,0,0,0.95), inset 0 0 40px rgba(255,153,0,0.15);
-        backdrop-filter: blur(18px);
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        padding: 0;
-    }
+        .page-grid {
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 20px;
+        }
 
-    /* Заголовок панели */
-    .panel-header {
-        padding: 14px 20px;
-        font-size: 14px;
-        letter-spacing: .18em;
-        text-transform: uppercase;
-        color: var(--accent3);
-        background: rgba(0,0,0,0.35);
-        border-bottom: 1px solid rgba(255,153,0,0.25);
-        flex-shrink: 0;
-    }
+        .panel {
+            border-radius: 24px;
+            background: radial-gradient(circle at 0 0, rgba(255,255,255,0.06) 0, transparent 55%),
+                        radial-gradient(circle at 100% 100%, rgba(255,153,0,0.18) 0, transparent 55%),
+                        var(--glass);
+            border: 1px solid rgba(255,153,0,0.25);
+            box-shadow: 0 0 40px rgba(0,0,0,0.95), inset 0 0 40px rgba(255,153,0,0.15);
+            backdrop-filter: blur(18px);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 0;
+        }
 
-    /* Тело панели */
-    .panel-body {
-        padding: 16px 20px;
-        font-size: 14px;
-        line-height: 1.6;
-        overflow: auto;
-    }
+        .panel-header {
+            padding: 14px 20px;
+            font-size: 14px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--accent3);
+            background: rgba(0,0,0,0.35);
+            border-bottom: 1px solid rgba(255,153,0,0.25);
+            flex-shrink: 0;
+        }
 
-    .panel-body h3 {
-        font-size: 16px;
-        margin-bottom: 8px;
-        color: var(--accent3);
-    }
+        .panel-body {
+            padding: 16px 20px;
+            font-size: 14px;
+            line-height: 1.6;
+            overflow: auto;
+        }
 
-    .panel-body p {
-        margin-bottom: 10px;
-        color: #e5e5f5;
-    }
+        .panel-body h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: var(--accent3);
+        }
 
-    .panel-body ul {
-        margin-left: 18px;
-        margin-bottom: 10px;
-        color: #e5e5f5;
-    }
+        .panel-body p {
+            margin-bottom: 10px;
+            color: #e5e5f5;
+        }
 
-    .panel-body li {
-        margin-bottom: 4px;
-    }
+        .panel-body ul {
+            margin-left: 18px;
+            margin-bottom: 10px;
+            color: #e5e5f5;
+        }
 
-    /* === Панель стрима === */
-    .panel-stream .stream-box {
-        width: 100%;
-        aspect-ratio: 16/9;        /* Соотношение 16:9 */
-        background: #000;
-        overflow: hidden;
-        flex-shrink: 0;
-    }
+        .panel-body li {
+            margin-bottom: 4px;
+        }
 
-    .panel-stream .stream-box iframe {
-        width: 100%;
-        height: 100%;
-        border: 0;
-        display: block;
-    }
+        .panel-stream .stream-box {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
 
-    /* === Панель чата === */
-    .panel-chat .chat-box {
-        flex: 1;
-        background: #000;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        border-radius: 18px 18px 0 0;
-    }
+        .panel-stream .stream-box iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
 
-    .chat-messages {
-        flex: 1;
-        padding: 12px;
-        overflow-y: auto;
-        font-size: 13px;
-        line-height: 1.5;
-    }
+        .panel-chat .chat-box {
+            flex: 1;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border-radius: 18px 18px 0 0;
+        }
 
-    .chat-message {
-        margin-bottom: 6px;
-        color: #e5e5f5;
-        word-break: break-word;
-    }
+        .chat-messages {
+            flex: 1;
+            padding: 12px;
+            overflow-y: auto;
+            font-size: 13px;
+            line-height: 1.5;
+        }
 
-    /* === Ввод имени пользователя === */
-    .name-setup {
-        padding: 12px;
-        background: rgba(0,0,0,0.7);
-        border-bottom: 1px solid rgba(255,153,0,0.25);
-        display: flex;
-        gap: 10px;
-    }
+        .chat-message {
+            margin-bottom: 6px;
+            color: #e5e5f5;
+            word-break: break-word;
+        }
 
-    .name-setup input {
-        flex: 1;
-        padding: 10px;
-        background: #111;
-        border: 1px solid rgba(255,153,0,0.4);
-        color: #fff;
-        border-radius: 8px;
-    }
+        .name-setup {
+            padding: 12px;
+            background: rgba(0,0,0,0.7);
+            border-bottom: 1px solid rgba(255,153,0,0.25);
+            display: flex;
+            gap: 10px;
+        }
 
-    .name-setup button {
-        padding: 10px 16px;
-        background: var(--accent);
-        border: none;
-        color: #000;
-        font-weight: 700;
-        cursor: pointer;
-        border-radius: 8px;
-    }
+        .name-setup input {
+            flex: 1;
+            padding: 10px;
+            background: #111;
+            border: 1px solid rgba(255,153,0,0.4);
+            color: #fff;
+            border-radius: 8px;
+        }
 
-    /* === Вкладки банков (донаты) === */
-    .bank-tabs {
-        display: none;              /* Скрыты по умолчанию */
-        gap: 10px;
-        padding: 6px 10px 0;
-        background: rgba(0,0,0,0.85);
-        border-top: 1px solid rgba(255,153,0,0.35);
-    }
+        .name-setup button {
+            padding: 10px 16px;
+            background: var(--accent);
+            border: none;
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 8px;
+        }
 
-    .bank-tab {
-        padding: 6px 12px;
-        background: rgba(255,153,0,0.15);
-        border: 1px solid rgba(255,153,0,0.35);
-        border-bottom: none;
-        border-radius: 8px 8px 0 0;
-        color: var(--accent3);
-        font-size: 11px;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: .2s;
-    }
+        .bank-tabs {
+            display: none;
+            gap: 10px;
+            padding: 6px 10px 0;
+            background: rgba(0,0,0,0.85);
+            border-top: 1px solid rgba(255,153,0,0.35);
+        }
 
-    .bank-tab:hover {
-        background: rgba(255,153,0,0.25);
-        transform: translateY(-6px);
-        box-shadow: 0 -8px 20px rgba(255,153,0,0.35), 0 0 20px rgba(0,0,0,0.8);
-    }
+        .bank-tab {
+            padding: 6px 12px;
+            background: rgba(255,153,0,0.15);
+            border: 1px solid rgba(255,153,0,0.35);
+            border-bottom: none;
+            border-radius: 8px 8px 0 0;
+            color: var(--accent3);
+            font-size: 11px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: .2s;
+        }
 
-    /* === Блок с донатами === */
-    #donateContent {
-        display: none;
-        background: #000;
-    }
+        .bank-tab:hover {
+            background: rgba(255,153,0,0.25);
+            transform: translateY(-6px);
+            box-shadow: 0 -8px 20px rgba(255,153,0,0.35), 0 0 20px rgba(0,0,0,0.8);
+        }
 
-    /* === Ввод сообщения в чат === */
-    .chat-input {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        border-top: 1px solid rgba(255,153,0,0.35);
-        background: rgba(0,0,0,0.85);
-        padding: 10px;
-    }
+        #donateContent {
+            display: none;
+            background: #000;
+        }
 
-    .chat-input input[type=text] {
-        flex: 1;
-        padding: 10px;
-        background: transparent;
-        border: none;
-        color: #fff;
-        outline: none;
-    }
+        .chat-input {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            border-top: 1px solid rgba(255,153,0,0.35);
+            background: rgba(0,0,0,0.85);
+            padding: 10px;
+        }
 
-    .chat-input button {
-        padding: 10px 16px;
-        background: var(--accent);
-        border: none;
-        color: #000;
-        font-weight: 700;
-        cursor: pointer;
-    }
+        .chat-input input[type=text] {
+            flex: 1;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            outline: none;
+        }
 
-    .chat-input button:hover {
-        background: var(--accent2);
-        color: #fff;
-    }
+        .chat-input button {
+            padding: 10px 16px;
+            background: var(--accent);
+            border: none;
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+        }
 
-    .chat-input label {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 12px;
-        color: var(--accent3);
-        cursor: pointer;
-        white-space: nowrap;
-    }
+        .chat-input button:hover {
+            background: var(--accent2);
+            color: #fff;
+        }
 
-    .chat-input input[type=checkbox] {
-        accent-color: var(--accent);
-    }
+        .chat-input label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--accent3);
+            cursor: pointer;
+            white-space: nowrap;
+        }
 
-    /* === Стили блока доната === */
-    .don-wrap {
-        padding: 12px;
-        border-top: 1px solid rgba(255,153,0,0.35);
-        background: #000;
-        text-align: center;
-    }
+        .chat-input input[type=checkbox] {
+            accent-color: var(--accent);
+        }
 
-    .don-title {
-        font-size: 14px;
-        margin-bottom: 8px;
-        color: #ffdd99;
-    }
+        .don-wrap {
+            padding: 12px;
+            border-top: 1px solid rgba(255,153,0,0.35);
+            background: #000;
+            text-align: center;
+        }
 
-    .don-label {
-        font-size: 12px;
-        color: #ccc;
-        margin-bottom: 6px;
-    }
+        .don-title {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #ffdd99;
+        }
 
-    .don-input {
-        width: 100%;
-        padding: 10px;
-        background: #111;
-        border: 1px solid #444;
-        color: #fff;
-        border-radius: 8px;
-        margin-bottom: 12px;
-    }
+        .don-label {
+            font-size: 12px;
+            color: #ccc;
+            margin-bottom: 6px;
+        }
 
-    .don-qr {
-        width: 120px;
-        height: 120px;
-        border-radius: 12px;
-        margin: 12px auto;
-        display: block;
-        box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        object-fit: cover;
-        cursor: pointer;
-        transition: transform .2s;
-    }
+        .don-input {
+            width: 100%;
+            padding: 10px;
+            background: #111;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
 
-    .don-qr:hover {
-    transform: scale(1.05);
-}
+        .don-qr {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            margin: 12px auto;
+            display: block;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform .2s;
+        }
 
-/* === Кнопка доната === */
-.don-btn {
-    display: inline-block;
-    padding: 8px 16px;
-    background: #3bd16f;
-    border: none;
-    color: #000;
-    font-weight: 700;
-    font-size: 13px;
-    border-radius: 8px;
-    text-decoration: none;
-    cursor: pointer;
-    margin-top: 8px;
-}
+        .don-qr:hover {
+            transform: scale(1.05);
+        }
 
-.don-btn:hover {
-    background: #2ec55e;
-    transform: translateY(-1px);
-}
+        .don-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #3bd16f;
+            border: none;
+            color: #000;
+            font-weight: 700;
+            font-size: 13px;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            margin-top: 8px;
+        }
 
-/* === Адаптив: мобильные устройства === */
-@media (max-width: 900px) {
-    .page-grid {
-        display: block;
-    }
+        .don-btn:hover {
+            background: #2ec55e;
+            transform: translateY(-1px);
+        }
 
-    .panel-stream {
-        margin-bottom: 16px;
-    }
+        @media (max-width: 900px) {
+            .page-grid {
+                display: block;
+            }
 
-    .panel-chat {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 100%;
-        height: 100%;
-        transition: right .3s ease;
-        z-index: 9999;
-    }
+            .panel-stream {
+                margin-bottom: 16px;
+            }
 
-    .panel-chat.chat-open {
-        right: 0;
-    }
+            .panel-chat {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100%;
+                transition: right .3s ease;
+                z-index: 9999;
+            }
 
-    .panel-stream .stream-box {
-        width: 100%;
-        aspect-ratio: 16/9;
-    }
-}
-</style>
+            .panel-chat.chat-open {
+                right: 0;
+            }
+
+            .panel-stream .stream-box {
+                width: 100%;
+                aspect-ratio: 16/9;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- === Фоновые эффекты === -->
-    <!-- Орбиты: радиальные градиенты по углам с размытием -->
     <div class="bg-orbit"></div>
-    <!-- Сетка: мелкая сетка 40x40px, медленно движется -->
     <div class="bg-grid"></div>
-    <!-- Диагональные линии: ромбовидная текстура, дрейфует -->
     <div class="bg-lines"></div>
 
-    <!-- === Основной контейнер страницы === -->
     <div class="page-shell">
-        <!-- === Шапка сайта === -->
         <header class="header">
-            <!-- Левая часть: логотип и подпись -->
             <div class="header-left">
                 <div class="header-title">СайтСотика</div>
                 <div class="header-sub">стрим · чатик · страницы</div>
             </div>
-            <!-- Навигация: вкладки между разделами -->
             <nav class="header-nav">
                 <a data-page="home" class="active">Главная</a>
                 <a data-page="about">Обо мне</a>
@@ -529,34 +498,26 @@
             </nav>
         </header>
 
-        <!-- === Основное содержимое === -->
         <main class="content">
-            <!-- === Главная страница (активна по умолчанию) === -->
             <section class="page page-active" id="page-home">
                 <div class="page-grid">
-                    <!-- Панель стрима -->
                     <section class="panel panel-stream">
                         <div class="panel-header">стрим</div>
                         <div class="stream-box">
-                            <!-- Встраиваемый плеер Twitch -->
-                            <iframe src="https://player.twitch.tv/?channel=fsbsotik&parent=localhost&parent=www.xn--80aaxdgwscic.xn--p1ai" allowfullscreen></iframe>
+                            <iframe src="https://player.twitch.tv/?channel=fsbsotik&parent=www.xn--80aaxdgwscic.xn--p1ai" allowfullscreen></iframe>
                         </div>
                     </section>
 
-                    <!-- Панель чата -->
                     <section class="panel panel-chat">
                         <div class="panel-header">чатиксотика</div>
                         <div class="chat-box">
-                            <!-- Форма ввода имени (показывается, если имя не сохранено) -->
                             <div id="nameSetup" class="name-setup" style="display:none;">
                                 <input id="nameInput" type="text" placeholder="Введите НИК или ИМЯ и ФАМИЛИЮ">
                                 <button onclick="saveName()">OK</button>
                             </div>
 
-                            <!-- Область сообщений чата -->
                             <div class="chat-messages" id="chat"></div>
 
-                            <!-- Вкладки банков (появляются при включении чекбокса "донат") -->
                             <div id="bankTabs" class="bank-tabs">
                                 <div class="bank-tab" onclick="toggleDonateContent('Сбер')">Сбер</div>
                                 <div class="bank-tab" onclick="toggleDonateContent('Т‑Банк')">Т‑Банк</div>
@@ -564,16 +525,11 @@
                                 <div class="bank-tab" onclick="toggleDonateContent('ЮMoney')">ЮMoney</div>
                             </div>
 
-                            <!-- Контент доната (QR, ссылки, форма суммы) -->
                             <div id="donateContent"></div>
 
-                            <!-- Панель ввода сообщения -->
                             <div class="chat-input">
-                                <!-- Флаг "донат" — включает/выключает вкладки банков -->
                                 <label><input type="checkbox" id="donateFlag" onchange="toggleBanks()">донат</label>
-                                <!-- Поле ввода сообщения (отключено, пока не введено имя) -->
                                 <input id="msg" type="text" placeholder="Введите сообщение..." disabled>
-                                <!-- Кнопка отправки (тоже отключена до ввода имени) -->
                                 <button onclick="sendMsg()" disabled>OK</button>
                             </div>
                         </div>
@@ -581,10 +537,8 @@
                 </div>
             </section>
 
-            <!-- === Страница "Обо мне" === -->
             <section class="page" id="page-about">
                 <div class="page-grid">
-                    <!-- Левая панель: описание личности -->
                     <section class="panel">
                         <div class="panel-header">Обо мне</div>
                         <div class="panel-body">
@@ -594,7 +548,6 @@
                         </div>
                     </section>
 
-                    <!-- Правая панель: формат стримов -->
                     <section class="panel">
                         <div class="panel-header">Стрим-формат</div>
                         <div class="panel-body">
@@ -611,10 +564,8 @@
                 </div>
             </section>
 
-            <!-- === Страница "Игры" === -->
             <section class="page" id="page-games">
                 <div class="page-grid">
-                    <!-- Левая панель: игры на канале -->
                     <section class="panel">
                         <div class="panel-header">Игры на канале</div>
                         <div class="panel-body">
@@ -628,7 +579,6 @@
                         </div>
                     </section>
 
-                    <!-- Правая панель: форматы контента -->
                     <section class="panel">
                         <div class="panel-header">Форматы контента</div>
                         <div class="panel-body">
@@ -645,10 +595,8 @@
                 </div>
             </section>
 
-            <!-- === Страница "Команда" === -->
             <section class="page" id="page-team">
                 <div class="page-grid">
-                    <!-- Левая панель: кто в команде -->
                     <section class="panel">
                         <div class="panel-header">Команда</div>
                         <div class="panel-body">
@@ -662,22 +610,19 @@
                         </div>
                     </section>
 
-                    <!-- Правая панель: как попасть в команду -->
                     <section class="panel">
                         <div class="panel-header">Как попасть в команду</div>
                         <div class="panel-body">
                             <h3>Роли и требования</h3>
-                            <p>Можно описать, кого ты ищешь: модеров, людей для соцсетей, технарей, организаторов ивентов. И как с тобой связаться по этому поводу.</p>
+                            <p>Можно описать, кого ты ищешь: модеров, людей для соцсетей, технарей, организаторов ивентов и как с тобой связаться по этому поводу.</p>
                             <p>Например: «Если хочешь в команду — напиши в личку в VK/Telegram с пометкой “Команда Сотика” и кратко расскажи, чем хочешь заниматься».</p>
                         </div>
                     </section>
                 </div>
             </section>
 
-            <!-- === Страница "Партнёры" === -->
             <section class="page" id="page-partners">
                 <div class="page-grid">
-                    <!-- Левая панель: текущие партнёры -->
                     <section class="panel">
                         <div class="panel-header">Партнёры</div>
                         <div class="panel-body">
@@ -691,7 +636,6 @@
                         </div>
                     </section>
 
-                    <!-- Правая панель: как стать партнёром -->
                     <section class="panel">
                         <div class="panel-header">Стать партнёром</div>
                         <div class="panel-body">
@@ -705,299 +649,257 @@
         </main>
     </div>
 
-</body>
-<script>
-    // === Навигация между страницами ===
-    // Выбираем все ссылки в шапке и все страницы
-    const navLinks = document.querySelectorAll(".header-nav a");
-    const pages = document.querySelectorAll(".page");
+    <!-- Данные для ЮMoney -->
+    <script id="youmoney-json" type="application/json">
+        {
+            "wallet": "4100117753597226",
+            "service": "yoomoney.ru",
+            "purpose": "донат на стрим"
+        }
+    </script>
 
-    // Добавляем обработчик клика на каждую ссылку
-    navLinks.forEach(link => {
-        link.addEventListener("click", () => {
-            // Получаем значение data-page (например, "home", "about")
-            const target = link.getAttribute("data-page");
+    <script>
+        // Навигация
+        const navLinks = document.querySelectorAll(".header-nav a");
+        const pages = document.querySelectorAll(".page");
 
-            // Убираем активный класс у всех ссылок
-            navLinks.forEach(l => l.classList.remove("active"));
-            // Добавляем активный класс только текущей
-            link.classList.add("active");
-
-            // Показываем нужную страницу, скрываем остальные
-            pages.forEach(p => {
-                if (p.id === "page-" + target) {
-                    p.classList.add("page-active");
-                } else {
-                    p.classList.remove("page-active");
-                }
+        navLinks.forEach(link => {
+            link.addEventListener("click", () => {
+                const target = link.getAttribute("data-page");
+                navLinks.forEach(l => l.classList.remove("active"));
+                link.classList.add("active");
+                pages.forEach(p => {
+                    if (p.id === "page-" + target) {
+                        p.classList.add("page-active");
+                    } else {
+                        p.classList.remove("page-active");
+                    }
+                });
             });
         });
-    });
 
-    // === Работа с именем пользователя ===
-    // Читаем сохранённое имя из localStorage
-    let userName = localStorage.getItem("sotik_name");
+        // Имя пользователя
+        let userName = localStorage.getItem("sotik_name");
 
-    // Функция валидации имени
-    function validateName(input) {
-        // Убираем лишние пробелы и нормализуем
-        input = input.trim().replace(/\s+/g, " ");
-        const parts = input.split(" ");
-
-        // Допустимы: одно имя (мин. 2 символа) или имя + фамилия (каждое мин. 2 символа)
-        if (parts.length === 1 && parts[0].length >= 2) return input;
-        if (parts.length === 2 && parts[0].length >= 2 && parts[1].length >= 2) return input;
-        return null; // Если не прошло валидацию
-    }
-
-    // Сохранение имени
-    function saveName() {
-        const input = document.getElementById("nameInput").value;
-        const valid = validateName(input);
-
-        if (!valid) {
-            alert("Введите корректное имя (минимум 2 символа, можно имя и фамилию)");
-            return;
+        function validateName(input) {
+            input = input.trim().replace(/\s+/g, " ");
+            const parts = input.split(" ");
+            if (parts.length === 1 && parts[0].length >= 2) return input;
+            if (parts.length === 2 && parts[0].length >= 2 && parts[1].length >= 2) return input;
+            return null;
         }
 
-        // Сохраняем в localStorage и обновляем переменную
-        localStorage.setItem("sotik_name", valid);
-        userName = valid;
-
-        // Скрываем форму ввода имени
-        document.getElementById("nameSetup").style.display = "none";
-        // Включаем поле ввода сообщений и кнопку
-        document.getElementById("msg").disabled = false;
-        document.querySelector(".chat-input button").disabled = false;
-    }
-
-    // Проверка: если имя не сохранено — показываем форму
-    if (!userName) {
-        document.getElementById("nameSetup").style.display = "flex";
-    } else {
-        // Иначе — разрешаем писать в чат
-        document.getElementById("msg").disabled = false;
-        document.querySelector(".chat-input button").disabled = false;
-    }
-
-    // === Отправка сообщений в чат ===
-    function sendMsg() {
-        const msg = document.getElementById("msg");
-        const text = msg.value.trim();
-
-        if (!text) return; // Не отправляем пустые сообщения
-
-        // Отправляем на сервер
-        if (socket.readyState === WebSocket.OPEN) {
-            socket.send(JSON.stringify({
-                type: 'chat',
-                text: text
-            }));
+        function saveName() {
+            const input = document.getElementById("nameInput").value;
+            const valid = validateName(input);
+            if (!valid) {
+                alert("Введите корректное имя (минимум 2 символа, можно имя и фамилию)");
+                return;
+            }
+            localStorage.setItem("sotik_name", valid);
+            userName = valid;
+            document.getElementById("nameSetup").style.display = "none";
+            document.getElementById("msg").disabled = false;
+            document.querySelector(".chat-input button").disabled = false;
         }
 
-        msg.value = ''; // Очищаем поле
-    }
-
-    // Отправка по Enter
-    document.getElementById("msg").addEventListener("keydown", e => {
-        if (e.key === "Enter") {
-            e.preventDefault();
-            sendMsg();
-        }
-    });
-
-    // === Добавление сообщения в чат (общая функция) ===
-    function addMessageToChat(name, text) {
-        const chat = document.getElementById("chat");
-        const div = document.createElement("div");
-        div.className = "chat-message";
-        div.innerHTML = `<b>${name}:</b> ${text}`;
-        chat.appendChild(div);
-        chat.scrollTop = chat.scrollHeight;
-    }
-
-    // === Управление донатами ===
-    // Показ/скрытие вкладок банков при клике на чекбокс "донат"
-    function toggleBanks() {
-        const tabs = document.getElementById("bankTabs");
-        const flag = document.getElementById("donateFlag");
-        const box = document.getElementById("donateContent");
-
-        if (flag.checked) {
-            tabs.style.display = "flex"; // Показываем вкладки
-            if (box.innerHTML.trim()) box.style.display = "block"; // Если есть контент — показываем
+        if (!userName) {
+            document.getElementById("nameSetup").style.display = "flex";
         } else {
-            tabs.style.display = "none"; // Скрываем всё
-            box.style.display = "none";
-        }
-    }
-
-    // Генерация QR-кода через qrserver.com
-    function makeQR(url) {
-        return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&ecc=M&data=${encodeURIComponent(url)}`;
-    }
-
-    // === Функции для каждого банка ===
-    function donateSber() {
-        const account = "4276550012345678";
-        const link = `https://sber.me/${account}`;
-        const qr = makeQR(link);
-        document.getElementById("donateContent").innerHTML = `
-            <div class="don-wrap">
-                <div class="don-title">Сбер</div>
-                <img src="${qr}" class="don-qr" onclick="window.open('${link}','_blank')">
-                <button class="don-btn" onclick="this.innerText='✅ Оплачено'">Оплатил</button>
-            </div>
-        `;
-        document.getElementById("donateContent").style.display = "block";
-    }
-
-    function donateTBank() {
-        const phone = "+79123456789";
-        const link = `https://tbank.app/donate/${phone}`;
-        const qr = makeQR(link);
-        document.getElementById("donateContent").innerHTML = `
-            <div class="don-wrap">
-                <div class="don-title">Т‑Банк</div>
-                <img src="${qr}" class="don-qr" onclick="window.open('${link}','_blank')">
-                <button class="don-btn" onclick="this.innerText='✅ Оплачено'">Оплатил</button>
-            </div>
-        `;
-        document.getElementById("donateContent").style.display = "block";
-    }
-
-    function donateVTB() {
-        const card = "4890495001234567";
-        const link = `https://online.vtb.ru/payments/transfer?card=${card}`;
-        const qr = makeQR(link);
-        document.getElementById("donateContent").innerHTML = `
-            <div class="don-wrap">
-                <div class="don-title">ВТБ</div>
-                <img src="${qr}" class="don-qr" onclick="window.open('${link}','_blank')">
-                <button class="don-btn" onclick="this.innerText='✅ Оплачено'">Оплатил</button>
-            </div>
-        `;
-        document.getElementById("donateContent").style.display = "block";
-    }
-
-    // === ЮMoney (YooMoney) ===
-    function donateYooMoneyDo() {
-        const sum = document.getElementById("donSum")?.value.trim();
-        if (!sum || isNaN(sum) || sum <= 0) {
-            alert("Введите корректную сумму!");
-            return;
+            document.getElementById("msg").disabled = false;
+            document.querySelector(".chat-input button").disabled = false;
         }
 
-        const wallet = "4100117753597226";
-        const params = new URLSearchParams({
-            receiver: wallet,
-            "quickpay-form": "shop",
-            sum: sum,
-            targets: "Поддержка проекта"
+        // WebSocket к Render
+        let socket;
+
+        function connect() {
+            socket = new WebSocket("wss://sos-atif.onrender.com");
+
+            socket.onopen = () => {
+                console.log("✅ Подключено к чат-серверу");
+            };
+
+            socket.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                if (data.type === "message" || data.type === "chat") {
+                    addMessageToChat(data.name || "Гость", data.text);
+                }
+            };
+
+            socket.onclose = () => {
+                console.log("⚠️ Соединение закрыто. Переподключение...");
+                setTimeout(connect, 2000);
+            };
+
+            socket.onerror = (err) => {
+                console.error("❌ Ошибка WebSocket:", err);
+            };
+        }
+
+        connect();
+
+        // Отправка сообщения
+        function sendMsg() {
+            const msg = document.getElementById("msg");
+            const text = msg.value.trim();
+            if (!text) return;
+            if (!userName) {
+                alert("Сначала введите имя");
+                return;
+            }
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                socket.send(JSON.stringify({
+                    type: "chat",
+                    name: userName,
+                    text: text
+                }));
+            }
+            msg.value = "";
+        }
+
+        document.getElementById("msg").addEventListener("keydown", e => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                sendMsg();
+            }
         });
 
-        const paymentUrl = `https://yoomoney.ru/quickpay/confirm?${params.toString()}`;
-        const qr = makeQR(paymentUrl);
+        function addMessageToChat(name, text) {
+            const chat = document.getElementById("chat");
+            const div = document.createElement("div");
+            div.className = "chat-message";
+            div.innerHTML = `<b>${name}:</b> ${text}`;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
 
-        document.getElementById("donateContent").innerHTML = `
-            <div class="don-wrap">
-                <div class="don-title">ЮMoney</div>
-                <img src="${qr}" class="don-qr" onclick="window.open('${paymentUrl}','_blank')">
-                <button class="don-btn" onclick="this.innerText='✅ Оплачено'">Оплатил</button>
-            </div>
-        `;
-        document.getElementById("donateContent").style.display = "block";
-    }
+        // Донаты
+        function toggleBanks() {
+            const tabs = document.getElementById("bankTabs");
+            const flag = document.getElementById("donateFlag");
+            const box = document.getElementById("donateContent");
+            if (flag.checked) {
+                tabs.style.display = "flex";
+                if (box.innerHTML.trim()) box.style.display = "block";
+            } else {
+                tabs.style.display = "none";
+                box.style.display = "none";
+            }
+        }
 
-    // Показ формы доната в зависимости от выбранного банка
-    function toggleDonateContent(bank) {
-        const box = document.getElementById("donateContent");
-        box.style.display = "block";
+        function makeQR(url) {
+            return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&ecc=M&data=${encodeURIComponent(url)}`;
+        }
 
-        if (bank === "ЮMoney") {
-            box.innerHTML = `
+        function donateSber() {
+            const account = "4276550012345678";
+            const link = `https://sber.me/${account}`;
+            const qr = makeQR(link);
+            document.getElementById("donateContent").innerHTML = `
                 <div class="don-wrap">
-                    <div class="don-title">ЮMoney</div>
-                    <div class="don-label">Введите сумму доната:</div>
-                    <input type="number" id="donSum" min="1" placeholder="100" class="don-input">
-                    <button onclick="donateYooMoneyDo()" class="don-btn">Создать</button>
+                    <div class="don-title">Сбер</div>
+                    <img src="${qr}" class="don-qr" onclick="window.open('${link}','_blank')">
+                    <button class="don-btn" onclick="this.innerText='✅ Оплачено'">Оплатил</button>
                 </div>
             `;
-        } else if (bank === "Сбер") {
-            donateSber();
-        } else if (bank === "Т‑Банк") {
-            donateTBank();
-        } else if (bank === "ВТБ") {
-            donateVTB();
+            document.getElementById("donateContent").style.display = "block";
         }
-    }
 
-    // === Свайпы на мобильных устройствах ===
-    let startX = 0;
-    let endX = 0;
-
-    // Запоминаем начало свайпа
-    document.addEventListener("touchstart", e => {
-        if (window.innerWidth > 900) return; // Только на мобильных
-        startX = e.touches[0].clientX;
-    });
-
-    // Обработка окончания свайпа
-    document.addEventListener("touchend", e => {
-        if (window.innerWidth > 900) return;
-        endX = e.changedTouches[0].clientX;
-
-        const chatPanel = document.querySelector(".panel-chat");
-        if (!chatPanel) return;
-
-        // Свайп вправо — открыть чат
-        if (endX - startX > 80) {
-            chatPanel.classList.add("chat-open");
+        function donateTBank() {
+            const phone = "+79123456789";
+            const link = `https://tbank.app/donate/${phone}`;
+            const qr = makeQR(link);
+            document.getElementById("donateContent").innerHTML = `
+                <div class="don-wrap">
+                    <div class="don-title">Т‑Банк</div>
+                    <img src="${qr}" class="don-qr" onclick="window.open('${link}','_blank')">
+                    <button class="don-btn" onclick="this.innerText='✅ Оплачено'">Оплатил</button>
+                </div>
+            `;
+            document.getElementById("donateContent").style.display = "block";
         }
-        // Свайп влево — закрыть чат
-        else if (startX - endX > 80) {
-            chatPanel.classList.remove("chat-open");
+
+        function donateVTB() {
+            const card = "4890495001234567";
+            const link = `https://online.vtb.ru/payments/transfer?card=${card}`;
+            const qr = makeQR(link);
+            document.getElementById("donateContent").innerHTML = `
+                <div class="don-wrap">
+                    <div class="don-title">ВТБ</div>
+                    <img src="${qr}" class="don-qr" onclick="window.open('${link}','_blank')">
+                    <button class="don-btn" onclick="this.innerText='✅ Оплачено'">Оплатил</button>
+                </div>
+            `;
+            document.getElementById("donateContent").style.display = "block";
         }
-    });
-    // === WebSocket: подключение к серверу ===
-    const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
-    const wsUrl = `${protocol}${window.location.host}/ws`;
-    let socket;
 
-    function connect() {
-        socket = new WebSocket(wsUrl);
-
-        socket.onopen = () => {
-            console.log('✅ Подключено к чат-серверу');
-        };
-
-        socket.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            if (data.type === 'message') {
-                addMessageToChat(data.name, data.text);
+        function donateYooMoneyDo() {
+            const sum = document.getElementById("donSum")?.value.trim();
+            if (!sum || isNaN(sum) || sum <= 0) {
+                alert("Введите корректную сумму!");
+                return;
             }
-        };
+            const wallet = "4100117753597226";
+            const params = new URLSearchParams({
+                receiver: wallet,
+                "quickpay-form": "shop",
+                sum: sum,
+                targets: "Поддержка проекта"
+            });
+            const paymentUrl = `https://yoomoney.ru/quickpay/confirm?${params.toString()}`;
+            const qr = makeQR(paymentUrl);
+            document.getElementById("donateContent").innerHTML = `
+                <div class="don-wrap">
+                    <div class="don-title">ЮMoney</div>
+                    <img src="${qr}" class="don-qr" onclick="window.open('${paymentUrl}','_blank')">
+                    <button class="don-btn" onclick="this.innerText='✅ Оплачено'">Оплатил</button>
+                </div>
+            `;
+            document.getElementById("donateContent").style.display = "block";
+        }
 
-        socket.onclose = () => {
-            console.log('⚠️ Соединение закрыто. Переподключение...');
-            setTimeout(connect, 2000);
-        };
+        function toggleDonateContent(bank) {
+            const box = document.getElementById("donateContent");
+            box.style.display = "block";
+            if (bank === "ЮMoney") {
+                box.innerHTML = `
+                    <div class="don-wrap">
+                        <div class="don-title">ЮMoney</div>
+                        <div class="don-label">Введите сумму доната:</div>
+                        <input type="number" id="donSum" min="1" placeholder="100" class="don-input">
+                        <button onclick="donateYooMoneyDo()" class="don-btn">Создать</button>
+                    </div>
+                `;
+            } else if (bank === "Сбер") {
+                donateSber();
+            } else if (bank === "Т‑Банк") {
+                donateTBank();
+            } else if (bank === "ВТБ") {
+                donateVTB();
+            }
+        }
 
-        socket.onerror = (err) => {
-            console.error('❌ Ошибка WebSocket:', err);
-        };
-    }
+        // Свайпы
+        let startX = 0;
+        let endX = 0;
 
-    // Запускаем подключение при загрузке
-    connect();
-</script>
+        document.addEventListener("touchstart", e => {
+            if (window.innerWidth > 900) return;
+            startX = e.touches[0].clientX;
+        });
 
-<!-- Данные для ЮMoney -->
-<script id="youmoney-json" type="application/json">
-    {
-        "wallet": "4100117753597226",
-        "service": "yoomoney.ru",
-        "purpose": "донат на стрим"
-    }
-</script></body>
+        document.addEventListener("touchend", e => {
+            if (window.innerWidth > 900) return;
+            endX = e.changedTouches[0].clientX;
+            const chatPanel = document.querySelector(".panel-chat");
+            if (!chatPanel) return;
+            if (endX - startX > 80) {
+                chatPanel.classList.add("chat-open");
+            } else if (startX - endX > 80) {
+                chatPanel.classList.remove("chat-open");
+            }
+        });
+    </script>
+</body>
 </html>
