@@ -479,177 +479,177 @@
     </style>
 </head>
 <body>
-    <div class="bg-orbit"></div>
-    <div class="bg-grid"></div>
-    <div class="bg-lines"></div>
+<div class="bg-orbit"></div>
+<div class="bg-grid"></div>
+<div class="bg-lines"></div>
 
-    <div class="page-shell">
-        <header class="header">
-            <div class="header-left">
-                <div class="header-title">СайтСотика</div>
-                <div class="header-sub">стрим · чатик · страницы</div>
+<div class="page-shell">
+    <header class="header">
+        <div class="header-left">
+            <div class="header-title">СайтСотика</div>
+            <div class="header-sub">стрим · чатик · страницы</div>
+        </div>
+        <nav class="header-nav">
+            <a data-page="home" class="active">Главная</a>
+            <a data-page="about">Обо мне</a>
+            <a data-page="games">Игры</a>
+            <a data-page="team">Команда</a>
+            <a data-page="partners">Партнёры</a>
+        </nav>
+    </header>
+
+    <main class="content">
+        <section class="page page-active" id="page-home">
+            <div class="page-grid">
+                <section class="panel panel-stream">
+                    <div class="panel-header">стрим</div>
+                    <div class="stream-box">
+                        <iframe src="https://player.twitch.tv/?channel=fsbsotik&parent=www.xn--80aaxdgwscic.xn--p1ai" allowfullscreen></iframe>
+                    </div>
+                </section>
+
+                <section class="panel panel-chat">
+                    <div class="panel-header">чатиксотика</div>
+                    <div class="chat-box">
+                        <div id="nameSetup" class="name-setup" style="display:none;">
+                            <input id="nameInput" type="text" placeholder="Введите НИК или ИМЯ и ФАМИЛИЮ">
+                            <button onclick="saveName()">OK</button>
+                        </div>
+
+                        <div class="chat-messages" id="chat"></div>
+
+                        <div id="bankTabs" class="bank-tabs">
+                            <div class="bank-tab" onclick="toggleDonateContent('Сбер')">Сбер</div>
+                            <div class="bank-tab" onclick="toggleDonateContent('Т‑Банк')">Т‑Банк</div>
+                            <div class="bank-tab" onclick="toggleDonateContent('ВТБ')">ВТБ</div>
+                            <div class="bank-tab" onclick="toggleDonateContent('ЮMoney')">ЮMoney</div>
+                        </div>
+
+                        <div id="donateContent"></div>
+
+                        <div class="chat-input">
+                            <label><input type="checkbox" id="donateFlag" onchange="toggleBanks()">донат</label>
+                            <input id="msg" type="text" placeholder="Введите сообщение..." disabled>
+                            <button onclick="sendMsg()" disabled>OK</button>
+                        </div>
+                    </div>
+                </section>
             </div>
-            <nav class="header-nav">
-                <a data-page="home" class="active">Главная</a>
-                <a data-page="about">Обо мне</a>
-                <a data-page="games">Игры</a>
-                <a data-page="team">Команда</a>
-                <a data-page="partners">Партнёры</a>
-            </nav>
-        </header>
+        </section>
 
-        <main class="content">
-            <section class="page page-active" id="page-home">
-                <div class="page-grid">
-                    <section class="panel panel-stream">
-                        <div class="panel-header">стрим</div>
-                        <div class="stream-box">
-                            <iframe src="https://player.twitch.tv/?channel=fsbsotik&parent=www.xn--80aaxdgwscic.xn--p1ai" allowfullscreen></iframe>
-                        </div>
-                    </section>
+        <section class="page" id="page-about">
+            <div class="page-grid">
+                <section class="panel">
+                    <div class="panel-header">Обо мне</div>
+                    <div class="panel-body">
+                        <h3>Кто такой Сотик</h3>
+                        <p>Здесь можно написать живое описание: кто ты, во что играешь, как давно стримишь, чем отличается твой контент от остальных и почему зрителю стоит задержаться.</p>
+                        <p>Добавь пару личных фактов, немного самоиронии и чёткий посыл: «я здесь, чтобы делать гонки интереснее, чем они есть».</p>
+                    </div>
+                </section>
 
-                    <section class="panel panel-chat">
-                        <div class="panel-header">чатиксотика</div>
-                        <div class="chat-box">
-                            <div id="nameSetup" class="name-setup" style="display:none;">
-                                <input id="nameInput" type="text" placeholder="Введите НИК или ИМЯ и ФАМИЛИЮ">
-                                <button onclick="saveName()">OK</button>
-                            </div>
+                <section class="panel">
+                    <div class="panel-header">Стрим-формат</div>
+                    <div class="panel-body">
+                        <h3>Что происходит на стримах</h3>
+                        <ul>
+                            <li>Живые заезды в любимых гоночных играх</li>
+                            <li>Разбор ошибок, траекторий и настроек</li>
+                            <li>Чат-движ, мемы и реакции в реальном времени</li>
+                            <li>Иногда — тесты железа, руля, педалей и прочего</li>
+                        </ul>
+                        <p>Здесь можно расписать расписание стримов, примерный формат и то, чего ждать от ближайших трансляций.</p>
+                    </div>
+                </section>
+            </div>
+        </section>
 
-                            <div class="chat-messages" id="chat"></div>
+        <section class="page" id="page-games">
+            <div class="page-grid">
+                <section class="panel">
+                    <div class="panel-header">Игры на канале</div>
+                    <div class="panel-body">
+                        <h3>Основные гоночные тайтлы</h3>
+                        <ul>
+                            <li>Assetto Corsa / ACC</li>
+                            <li>Forza / Gran Turismo</li>
+                            <li>Rally / симы / аркады — по настроению</li>
+                        </ul>
+                        <p>Можно добавить блоки под каждую игру: что именно ты там делаешь — карьера, онлайн, кастомные ивенты, фан-заезды с подписчиками.</p>
+                    </div>
+                </section>
 
-                            <div id="bankTabs" class="bank-tabs">
-                                <div class="bank-tab" onclick="toggleDonateContent('Сбер')">Сбер</div>
-                                <div class="bank-tab" onclick="toggleDonateContent('Т‑Банк')">Т‑Банк</div>
-                                <div class="bank-tab" onclick="toggleDonateContent('ВТБ')">ВТБ</div>
-                                <div class="bank-tab" onclick="toggleDonateContent('ЮMoney')">ЮMoney</div>
-                            </div>
+                <section class="panel">
+                    <div class="panel-header">Форматы контента</div>
+                    <div class="panel-body">
+                        <h3>Что зритель увидит</h3>
+                        <ul>
+                            <li>Онлайн-гонки с живыми соперниками</li>
+                            <li>Тренировки и разбор кругов</li>
+                            <li>Челленджи от чата и донатов</li>
+                            <li>Иногда — другие жанры для разгрузки</li>
+                        </ul>
+                        <p>Здесь можно оставить место под расписание турниров, лиг или регулярных ивентов, если ты их запустишь.</p>
+                    </div>
+                </section>
+            </div>
+        </section>
 
-                            <div id="donateContent"></div>
+        <section class="page" id="page-team">
+            <div class="page-grid">
+                <section class="panel">
+                    <div class="panel-header">Команда</div>
+                    <div class="panel-body">
+                        <h3>Кто помогает проекту</h3>
+                        <p>Если есть модераторы, дизайнеры, монтажёры, люди, которые помогают с идеями и организацией — их можно перечислить здесь.</p>
+                        <ul>
+                            <li>Модераторы чата</li>
+                            <li>Техническая поддержка (сервер, сайт, боты)</li>
+                            <li>Креатив / монтаж / клипы</li>
+                        </ul>
+                    </div>
+                </section>
 
-                            <div class="chat-input">
-                                <label><input type="checkbox" id="donateFlag" onchange="toggleBanks()">донат</label>
-                                <input id="msg" type="text" placeholder="Введите сообщение..." disabled>
-                                <button onclick="sendMsg()" disabled>OK</button>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </section>
+                <section class="panel">
+                    <div class="panel-header">Как попасть в команду</div>
+                    <div class="panel-body">
+                        <h3>Роли и требования</h3>
+                        <p>Можно описать, кого ты ищешь: модеров, людей для соцсетей, технарей, организаторов ивентов и как с тобой связаться по этому поводу.</p>
+                        <p>Например: «Если хочешь в команду — напиши в личку в VK/Telegram с пометкой “Команда Сотика” и кратко расскажи, чем хочешь заниматься».</p>
+                    </div>
+                </section>
+            </div>
+        </section>
 
-            <section class="page" id="page-about">
-                <div class="page-grid">
-                    <section class="panel">
-                        <div class="panel-header">Обо мне</div>
-                        <div class="panel-body">
-                            <h3>Кто такой Сотик</h3>
-                            <p>Здесь можно написать живое описание: кто ты, во что играешь, как давно стримишь, чем отличается твой контент от остальных и почему зрителю стоит задержаться.</p>
-                            <p>Добавь пару личных фактов, немного самоиронии и чёткий посыл: «я здесь, чтобы делать гонки интереснее, чем они есть».</p>
-                        </div>
-                    </section>
+        <section class="page" id="page-partners">
+            <div class="page-grid">
+                <section class="panel">
+                    <div class="panel-header">Партнёры</div>
+                    <div class="panel-body">
+                        <h3>Текущие партнёры</h3>
+                        <p>Здесь можно разместить логотипы и описания брендов, с которыми ты работаешь: железо, аксессуары, игры, сервисы.</p>
+                        <ul>
+                            <li>Место под логотип №1</li>
+                            <li>Место под логотип №2</li>
+                            <li>Место под логотип №3</li>
+                        </ul>
+                    </div>
+                </section>
 
-                    <section class="panel">
-                        <div class="panel-header">Стрим-формат</div>
-                        <div class="panel-body">
-                            <h3>Что происходит на стримах</h3>
-                            <ul>
-                                <li>Живые заезды в любимых гоночных играх</li>
-                                <li>Разбор ошибок, траекторий и настроек</li>
-                                <li>Чат-движ, мемы и реакции в реальном времени</li>
-                                <li>Иногда — тесты железа, руля, педалей и прочего</li>
-                            </ul>
-                            <p>Здесь можно расписать расписание стримов, примерный формат и то, чего ждать от ближайших трансляций.</p>
-                        </div>
-                    </section>
-                </div>
-            </section>
+                <section class="panel">
+                    <div class="panel-header">Стать партнёром</div>
+                    <div class="panel-body">
+                        <h3>Условия и контакты</h3>
+                        <p>Кратко: что ты можешь дать партнёру (аудитория, интеграции, брендирование стрима, упоминания) и как с тобой связаться по рекламе.</p>
+                        <p>Например: «По вопросам партнёрства и интеграций — пишите на почту partner@sotik.ru или в Telegram @sotik».</p>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+</div>
 
-            <section class="page" id="page-games">
-                <div class="page-grid">
-                    <section class="panel">
-                        <div class="panel-header">Игры на канале</div>
-                        <div class="panel-body">
-                            <h3>Основные гоночные тайтлы</h3>
-                            <ul>
-                                <li>Assetto Corsa / ACC</li>
-                                <li>Forza / Gran Turismo</li>
-                                <li>Rally / симы / аркады — по настроению</li>
-                            </ul>
-                            <p>Можно добавить блоки под каждую игру: что именно ты там делаешь — карьера, онлайн, кастомные ивенты, фан-заезды с подписчиками.</p>
-                        </div>
-                    </section>
-
-                    <section class="panel">
-                        <div class="panel-header">Форматы контента</div>
-                        <div class="panel-body">
-                            <h3>Что зритель увидит</h3>
-                            <ul>
-                                <li>Онлайн-гонки с живыми соперниками</li>
-                                <li>Тренировки и разбор кругов</li>
-                                <li>Челленджи от чата и донатов</li>
-                                <li>Иногда — другие жанры для разгрузки</li>
-                            </ul>
-                            <p>Здесь можно оставить место под расписание турниров, лиг или регулярных ивентов, если ты их запустишь.</p>
-                        </div>
-                    </section>
-                </div>
-            </section>
-
-            <section class="page" id="page-team">
-                <div class="page-grid">
-                    <section class="panel">
-                        <div class="panel-header">Команда</div>
-                        <div class="panel-body">
-                            <h3>Кто помогает проекту</h3>
-                            <p>Если есть модераторы, дизайнеры, монтажёры, люди, которые помогают с идеями и организацией — их можно перечислить здесь.</p>
-                            <ul>
-                                <li>Модераторы чата</li>
-                                <li>Техническая поддержка (сервер, сайт, боты)</li>
-                                <li>Креатив / монтаж / клипы</li>
-                            </ul>
-                        </div>
-                    </section>
-
-                    <section class="panel">
-                        <div class="panel-header">Как попасть в команду</div>
-                        <div class="panel-body">
-                            <h3>Роли и требования</h3>
-                            <p>Можно описать, кого ты ищешь: модеров, людей для соцсетей, технарей, организаторов ивентов и как с тобой связаться по этому поводу.</p>
-                            <p>Например: «Если хочешь в команду — напиши в личку в VK/Telegram с пометкой “Команда Сотика” и кратко расскажи, чем хочешь заниматься».</p>
-                        </div>
-                    </section>
-                </div>
-            </section>
-
-            <section class="page" id="page-partners">
-                <div class="page-grid">
-                    <section class="panel">
-                        <div class="panel-header">Партнёры</div>
-                        <div class="panel-body">
-                            <h3>Текущие партнёры</h3>
-                            <p>Здесь можно разместить логотипы и описания брендов, с которыми ты работаешь: железо, аксессуары, игры, сервисы.</p>
-                            <ul>
-                                <li>Место под логотип №1</li>
-                                <li>Место под логотип №2</li>
-                                <li>Место под логотип №3</li>
-                            </ul>
-                        </div>
-                    </section>
-
-                    <section class="panel">
-                        <div class="panel-header">Стать партнёром</div>
-                        <div class="panel-body">
-                            <h3>Условия и контакты</h3>
-                            <p>Кратко: что ты можешь дать партнёру (аудитория, интеграции, брендирование стрима, упоминания) и как с тобой связаться по рекламе.</p>
-                            <p>Например: «По вопросам партнёрства и интеграций — пишите на почту partner@sotik.ru или в Telegram @sotik».</p>
-                        </div>
-                    </section>
-                </div>
-            </section>
-        </main>
-    </div>
-
-   <!-- Данные для ЮMoney -->
+<!-- Данные для ЮMoney -->
 <script>
     // =========================
     //   НАВИГАЦИЯ
@@ -930,6 +930,7 @@
         else if (startX - endX > 80) chatPanel.classList.remove("chat-open");
     });
 </script>
+
 
 </body>
 </html>
